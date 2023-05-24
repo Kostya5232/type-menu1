@@ -15,7 +15,7 @@ import {
 } from "../../../modules/Math3D";
 
 const useGetFigure = () => {
-    return (name, params) => {
+    return (name:string, params) => {
         switch (name) {
             case "Cube":
                 return new Cube(params);

@@ -1,11 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
 class HyperbolicParaboloid extends Figure {
-    constructor(options = {}) {
-        const { p = 3, q = 4, count = 10, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+    constructor(options = {p : 3, q : 4, count : 10, color : "lightgreen", animations : "", x : 0, y : 0, z : 0}) {
+        const { p , q , count, color , animations, x , y , z  } = options;
+        const points:Point[] = [];
+        const edges:Edge[] = [];
+        const polygons:Polygon[] = [];
 
         for (let i = 0; i < count; i++) {
             for (let j = 0; j < count; j++) {

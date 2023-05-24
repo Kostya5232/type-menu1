@@ -1,7 +1,7 @@
+import { Polygon } from '../Math3D';
 import Math3D from '../Math3D/Math3D';
-
-class Canvas {
-  constructor({ WIN, id, width = 700, height = 700, callbacks = {} }) {
+export default class Canvas {
+  constructor({ WIN={}, id='', width = 700, height = 700, callbacks = {} }) {
     this.WIN = WIN;
     this.canvas = document.getElementById(id);
     this.canvas.width = width;
@@ -15,25 +15,25 @@ class Canvas {
     this.math3D = new Math3D({ WIN: this.WIN });
   }
 
-  xs(x) {
+  xs(x:number) {
     return (this.canvas.width * (x - this.WIN.LEFT)) / this.WIN.WIDTH;
   }
-  ys(y) {
+  ys(y:number) {
     return (
       this.canvas.height -
       (this.canvas.height * (y - this.WIN.BOTTOM)) / this.WIN.HEIGHT
     );
   }
-  sx(x) {
+  sx(x:number) {
     return (x * this.WIN.WIDTH) / this.canvas.width;
   }
-  sy(y) {
+  sy(y:number) {
     return (-y * this.WIN.HEIGHT) / this.canvas.height;
   }
-  x(xs) {
+  x(xs:number) {
     return (xs * this.WIN.WIDTH) / this.canvas.width + this.WIN.LEFT;
   }
-  y(ys) {
+  y(ys:number) {
     return (
       (-ys * this.WIN.HEIGHT) / this.canvas.height +
       this.WIN.BOTTOM +
@@ -46,7 +46,7 @@ class Canvas {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  line(x1, y1, x2, y2, color = '#191970', width = 2, isDash) {
+  line(x1:number, y1:number, x2:number, y2:number, color = '#191970', width = 2, isDash='') {
     this.context.beginPath();
     this.context.strokeStyle = color;
     this.context.lineWidth = width;
@@ -55,20 +55,20 @@ class Canvas {
     this.context.lineTo(this.xs(x2), this.ys(y2));
     this.context.stroke();
   }
-  text(text, x, y, color = 'black', font) {
+  text(text:string, x:string, y:string, color:string = 'black', font:string) {
     this.context.fillStyle = color;
     this.context.font = font || 'italic 15px Arial';
     this.context.fillText(text, this.xs(x), this.ys(y));
   }
 
-  point(x, y, color = 'red', size = 2) {
+  point(x:number, y:number, color:string = 'red', size:number = 2) {
     this.context.beginPath();
     this.context.strokeStyle = color;
     this.context.arc(this.xs(x), this.ys(y), size, 0, 2 * Math.PI);
     this.context.stroke();
   }
 
-  polygon(points, color = '#0806') {
+  polygon(points:Polygon, color:string = '#0806') {
     this.context.fillStyle = color;
     this.context.beginPath();
     this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
@@ -80,7 +80,7 @@ class Canvas {
     this.context.fill();
   }
 
-  drawRect(x, y, width, height, color) {
+  drawRect(x:number, y:number, width:number, height:number, color:string) {
     const heightRect = (height * this.canvas.height) / this.WIN.HEIGHT;
     const widthRect = (width * this.canvas.width) / this.WIN.WIDTH;
 
@@ -89,4 +89,4 @@ class Canvas {
   }
 }
 
-export default Canvas;
+

@@ -1,11 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
 class OneWayHyperboloid extends Figure {
-    constructor(options = {}) {
-        const { a = 2, b = 3, c = 4, count = 20, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+    constructor(options = {a :2, b : 3, c : 4, count : 20, color : "lightgreen", animations : "", x : 0, y : 0, z : 0}) {
+        const { a , b , c , count , color , animations , x , y , z  } = options;
+        const points:Point[] = [];
+        const edges:Edge[] = [];
+        const polygons:Polygon[] = [];
         for (let i = 0; i < count; i++) {
             const u = (Math.PI / count) * i;
             for (let j = 0; j < count; j++) {

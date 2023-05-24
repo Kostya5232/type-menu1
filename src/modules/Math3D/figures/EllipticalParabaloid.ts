@@ -1,25 +1,24 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
-class Sphere extends Figure {
-    constructor(options = {}) {
-        const { r = 10, count = 20, color = "#ffff44", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+class EllipticalParabaloid extends Figure {
+    constructor(options = { a: 10, b: 5, count: 20, color: "lightgreen", animations: "", x: 0, y: 0, z: 0 }) {
+        const { a , b , count , color , animations , x , y , z } = options;
+        const points: Point[] = [];
+        const edges: Edge[] = [];
+        const polygons: Polygon[] = [];
 
-        for (let j = 0; j <= count; j++) {
-            const T = (Math.PI / count) * j;
-            for (let i = 0; i < count; i++) {
-                const p = ((2 * Math.PI) / count) * i;
-                points.push(new Point(r * Math.sin(T) * Math.cos(p) + x, r * Math.cos(T) + y, r * Math.sin(T) * Math.sin(p) + z));
+        for (let i = 0; i <= count; i++) {
+            const T = ((2 * Math.PI) / count) * i;
+            for (let j = 0; j < count; j++) {
+                const p = ((2 * Math.PI) / count) * j;
+                points.push(new Point(a * T * Math.cos(p) + x, T * T + y, b * T * Math.sin(p) + z));
             }
         }
 
         for (let i = 0; i < points.length; i++) {
-            if (i + +count + 1 < points.length && (i + 1) % count !== 0) {
+            if (i + 1 < points.length && (i + 1) % count !== 0) {
                 edges.push(new Edge(i, i + 1));
-            }
-            if ((i + 1) % count === 0) {
+            } else if ((i + 1) % count === 0) {
                 edges.push(new Edge(i, i + 1 - count));
             }
             if (i < points.length - count) {
@@ -33,8 +32,9 @@ class Sphere extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+
         super(points, edges, polygons, animations);
     }
 }
 
-export default Sphere;
+export default EllipticalParabaloid;

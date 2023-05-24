@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import Math3D, { Point, Light, Sphere } from "../../modules/Math3D";
+import Math3D, { Point, Light, Polygon } from "../../modules/Math3D";
 import useCanvas from "../../modules/Canvas/useCanvas";
 import FigureParams from "./FigureParams/FigureParams";
 import Graph3DUI from "./Graph3DUI/Graph3DUI";
 
 import "./Graph3D.css";
-
+import { EDistance } from "../../modules/Math3D/entities/Polygon";
 export default function Graph3D() {
     const Canvas = useCanvas(renderScene);
     let canvas = null;
@@ -17,10 +17,10 @@ export default function Graph3D() {
         FOCUS: new Point(0, 0, 30),
         CAMERA: new Point(0, 0, 40),
     };
-    let canRotate = false;
     const LIGHT = new Light(-30, 30, 10, 30000);
-    let scene = [new Sphere(), new Sphere(3, 20, "#ffff00", -15, 12, -7)];
-
+    let scene = [];
+    
+    let canRotate = false;
     let pointsCheckbox = true;
     let edgesCheckbox = true;
     let polygonsCheckbox = true;
@@ -31,15 +31,15 @@ export default function Graph3D() {
         scene = _scene;
     };
 
-    const showHidePoints = (value) => {
+    const showHidePoints = (value:boolean) => {
         pointsCheckbox = value;
     };
 
-    const showHideEdges = (value) => {
+    const showHideEdges = (value:boolean) => {
         edgesCheckbox = value;
     };
 
-    const showHidePolygons = (value) => {
+    const showHidePolygons = (value:boolean) => {
         polygonsCheckbox = value;
     };
 
@@ -49,18 +49,18 @@ export default function Graph3D() {
         WIN.FOCUS.z += delta;
     }
 
-    function mouseUp() {
+    function mouseUp():void {
         canRotate = false;
     }
 
-    function mouseDown() {
+    function mouseDown():void {
         canRotate = true;
     }
 
-    function mouseMove(event) {
+    function mouseMove(event):void {
         if (canRotate) {
             scene.forEach((figure) =>
-                figure.points.forEach((point) => {
+                figure.points.forEach((point:Point) => {
                     const { movementX, movementY } = event;
                     math3D.transform(math3D.rotateOy(movementX / 180), point);
                     math3D.transform(math3D.rotateOx(movementY / 180), point);
@@ -69,17 +69,17 @@ export default function Graph3D() {
         }
     }
 
-    function renderScene(FPS) {
+    function renderScene(FPS:number) {
         if (!canvas) return;
         canvas.clear();
         if (polygonsCheckbox) {
-            const polygons = [];
+            const polygons:Polygon[] = [];
             scene.forEach((figure, index) => {
                 math3D.calcCenter(figure);
                 math3D.calcRadius(figure);
-                math3D.calcDisctance(figure, WIN.CAMERA, "distance");
-                math3D.calcDisctance(figure, LIGHT, "lumen");
-                figure.polygons.forEach((polygon) => {
+                math3D.calcDisctance(figure, WIN.CAMERA, EDistance.distance);
+                math3D.calcDisctance(figure, LIGHT, EDistance.lumen);
+                figure.polygons.forEach((polygon:Polygon) => {
                     polygon.figureIndex = index;
                     polygons.push(polygon);
                 });
@@ -94,7 +94,7 @@ export default function Graph3D() {
                     figure.points[polygon.points[3]],
                 ];
                 let { r, g, b } = polygon.color;
-                const { isShadow, dark } = math3D.calcShadow(polygon, scene, LIGHT);
+                const { isShadow:T, dark } = math3D.calcShadow(polygon, scene, LIGHT);
                 let lumen = math3D.calcIllumination(polygon.lumen, LIGHT.lumen * (isShadow ? dark : 1));
                 r = Math.round(r * lumen);
                 g = Math.round(g * lumen);
@@ -121,7 +121,7 @@ export default function Graph3D() {
         }
         if (pointsCheckbox) {
             scene.forEach((figure) =>
-                figure.points.forEach((point) => {
+                figure.points.forEach((point:Point) => {
                     canvas.point(math3D.xs(point), math3D.ys(point));
                 })
             );
@@ -159,9 +159,7 @@ export default function Graph3D() {
                 <Graph3DUI showHidePoints={showHidePoints} showHideEdges={showHideEdges} showHidePolygons={showHidePolygons} />
                 <canvas id="canvas3D"></canvas>
             </div>
-            <FigureParams
-                setScene={setScene}
-            />
+            <FigureParams setScene={setScene} />
         </div>
     );
 }

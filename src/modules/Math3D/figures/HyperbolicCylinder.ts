@@ -1,11 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
 class HyperbolicCylinder extends Figure {
-    constructor(options = {}) {
-        const { a = 10, b = 10, count = 20, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+    constructor(options = { a: 10, b: 10, count: 20, color: "lightgreen", animations: "", x: 0, y: 0, z: 0 }) {
+        const { a , b , count , color , animations , x , y , z } = options;
+        const points: Point[] = [];
+        const edges: Edge[] = [];
+        const polygons: Polygon[] = [];
 
         for (let i = -count / 2; i <= count / 2; i++) {
             const T = (Math.PI / count) * i;

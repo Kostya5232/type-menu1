@@ -1,20 +1,26 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
-class EllipticalParabaloid extends Figure {
-    constructor(options = {}) {
-        const { a = 10, b = 5, count = 20, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+class Cone extends Figure {
+    constructor(options = {r : 2, count : 8, color : "lightgreen", animations : "", x : 0,y : 0, z : 0 }) {
+        const {r, count , color , animations, x ,y, z } = options;
+        
+        //const {r = 2, count = 8, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
+        const points:Point[] = []
+        const edges:Edge[] = [];
+        const polygons:Polygon[] = [];
+        
 
-        for (let i = 0; i <= count; i++) {
+    
+        //точки
+        for (let i = -count; i <= count; i++) {
             const T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
                 const p = ((2 * Math.PI) / count) * j;
-                points.push(new Point(a * T * Math.cos(p) + x, T * T + y, b * T * Math.sin(p) + z));
+                points.push(new Point(r * T * Math.cos(p) + x, r * T + y, Math.sin(p) * r * T + z));
             }
         }
 
+        //ребра
         for (let i = 0; i < points.length; i++) {
             if (i + 1 < points.length && (i + 1) % count !== 0) {
                 edges.push(new Edge(i, i + 1));
@@ -25,6 +31,8 @@ class EllipticalParabaloid extends Figure {
                 edges.push(new Edge(i, i + count));
             }
         }
+
+        // полигоны
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
@@ -32,9 +40,8 @@ class EllipticalParabaloid extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
-
         super(points, edges, polygons, animations);
     }
 }
 
-export default EllipticalParabaloid;
+export default Cone;

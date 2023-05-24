@@ -1,25 +1,19 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
-class Cone extends Figure {
-    constructor(options = {}) {
-        const { r = 2, count = 8, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
-        
-
-    
-        //this.animations=[{method:'rotateOx',value: 0.01,center: new  Point()}]
-        //точки
-        for (let i = -count; i <= count; i++) {
+class Ellipsoid extends Figure {
+    constructor(options = { a: 10, b: 5, c: 7, count: 20, color: "lightgreen", animations: "", x: 0, y: 0, z: 0 }) {
+        const { a , b , c , count , color, animations, x , y , z } = options;
+        const points:Point[] = [];
+        const edges:Edge[] = [];
+        const polygons: Polygon[] = [];
+        for (let i = 0; i <= count; i++) {
             const T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
                 const p = ((2 * Math.PI) / count) * j;
-                points.push(new Point(r * T * Math.cos(p) + x, r * T + y, Math.sin(p) * r * T + z));
+                points.push(new Point(a * Math.sin(T) * Math.cos(p) + x, c * Math.cos(T) + y, b * Math.sin(T) * Math.sin(p) + z));
             }
         }
 
-        //ребра
         for (let i = 0; i < points.length; i++) {
             if (i + 1 < points.length && (i + 1) % count !== 0) {
                 edges.push(new Edge(i, i + 1));
@@ -30,8 +24,6 @@ class Cone extends Figure {
                 edges.push(new Edge(i, i + count));
             }
         }
-
-        // полигоны
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
@@ -39,8 +31,9 @@ class Cone extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+
         super(points, edges, polygons, animations);
     }
 }
 
-export default Cone;
+export default Ellipsoid;

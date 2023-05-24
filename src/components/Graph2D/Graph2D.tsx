@@ -3,11 +3,12 @@ import Canvas from '../../modules/Canvas/Canvas';
 import FuncMath from './FuncMath';
 import UIComponent from './UI/UIComponent';
 import './Graph2D.css';
+import { Polygon } from '../../modules/Math3D';
 
 export default function Graph2D() {
-  let canvas = null;
-  let ui = null;
-  let funcMath = null;
+  let canvas:Canvas|null = null;
+  let ui:UIComponent|null = null;
+  let funcMath:FuncMath|null = null;
   const WIN = {
     LEFT: -10,
     BOTTOM: -10,
@@ -37,8 +38,8 @@ export default function Graph2D() {
       id: 'ui',
       parent: 'ui',
       callbacks: {
-        delFunction: (num) => delFunction(num),
-        addFunction: (f, num, width, color, sLine, eLine, printDerevative) =>
+        delFunction: (num:number) => delFunction(num),
+        addFunction: (f, num:number, width:number, color:string, sLine:number, eLine:number, printDerevative:number) =>
           addFunction(f, num, width, color, sLine, eLine, printDerevative),
       },
     });
@@ -47,22 +48,22 @@ export default function Graph2D() {
     renderCanvas();
   });
 
-  function addFunction(f, num, width = 9, color = 'red', sLine, eLine, printDerevative) {
+  function addFunction(f:string, num:number, width:number = 9, color = 'red', sLine:number, eLine:number, printDerevative:number) {
     funcs[num] = { f, color, width, sLine, eLine, printDerevative };
     renderCanvas();
   }
 
-  function delFunction(num) {
+  function delFunction(num:number) {
     funcs[num] = null;
     renderCanvas();
   }
 
   function mouseMove(event) {
     if (canMove) {
-      WIN.LEFT -= canvas.sx(event.movementX);
-      WIN.BOTTOM -= canvas.sy(event.movementY);
+      WIN.LEFT -= canvas?canvas.sx(event.movementX):0;
+      WIN.BOTTOM -= canvas?canvas.sy(event.movementY):0;
     }
-    derevativeX = WIN.LEFT + canvas.sx(event.offsetX);
+    derevativeX = WIN.LEFT + (canvas?canvas.sx(event.offsetX):0);
     renderCanvas(event);
   }
   function mouseLeave() {
@@ -86,16 +87,16 @@ export default function Graph2D() {
     renderCanvas();
   }
 
-  const printFunction = (f, color, width) => {
+  const printFunction = (f, color:string, width:number) => {
     let x = WIN.LEFT;
     let dx = WIN.WIDTH / 1000;
     while (x < WIN.LEFT + WIN.WIDTH) {
-      canvas.line(x, f(x), x + dx, f(x + dx), color, width);
+      canvas?canvas.line(x, f(x), x + dx, f(x + dx), color, width):'';
       x += dx;
     }
   };
 
-  const printIntegral = (f, a, b, n = 100) => {
+  const printIntegral = (f, a:number, b:number, n:number = 100) => {
     const dx = (b - a) / n;
     let x = a;
     const points = [];
@@ -105,17 +106,19 @@ export default function Graph2D() {
       x += dx;
     }
     points.push({ x: b, y: 0 });
-    canvas.polygon(points, 'rgba(154, 205, 50, 0.7)');
+    canvas?canvas.polygon(points, 'rgba(154, 205, 50, 0.7)'):'';
   };
 
   const printXY = () => {
+    if(canvas){
     const { LEFT, BOTTOM, WIDTH, HEIGHT } = WIN;
 
     //Стрелки
-    canvas.line(WIDTH + LEFT, 0, WIDTH + LEFT - 0.4, 0.15, 'black', 2);
-    canvas.line(WIDTH + LEFT, 0, WIDTH + LEFT - 0.4, -0.15, 'black', 2);
-    canvas.line(0, HEIGHT + BOTTOM, -0.15, HEIGHT + BOTTOM - 0.4, 'black', 2);
-    canvas.line(0, HEIGHT + BOTTOM, 0.15, HEIGHT + BOTTOM - 0.4, 'black', 2);
+      canvas.line(WIDTH + LEFT, 0, WIDTH + LEFT - 0.4, 0.15, 'black', 2);
+      canvas.line(WIDTH + LEFT, 0, WIDTH + LEFT - 0.4, -0.15, 'black', 2);
+      canvas.line(0, HEIGHT + BOTTOM, -0.15, HEIGHT + BOTTOM - 0.4, 'black', 2);
+      canvas.line(0, HEIGHT + BOTTOM, 0.15, HEIGHT + BOTTOM - 0.4, 'black', 2);
+    
     //Клетки
     for (let i = 0; i > LEFT; i--) {
       canvas.line(i, BOTTOM + LEFT, i, HEIGHT + BOTTOM, '#BEBEBE', 1);
@@ -136,9 +139,11 @@ export default function Graph2D() {
     //Оси
     canvas.line(0, BOTTOM, 0, HEIGHT + BOTTOM, 'black', 3);
     canvas.line(LEFT, 0, WIDTH + LEFT, 0, 'black', 3);
+  }
   };
 
   const printNums = (streakLength = WIN.HEIGHT / (WIN.WIDTH + 30)) => {
+    if(canvas){
     const len = streakLength / 2;
     const shiftY = -WIN.HEIGHT / 200 - 0.4;
     const shiftX = WIN.WIDTH / 200;
@@ -147,16 +152,18 @@ export default function Graph2D() {
       canvas.text(i, i + shiftX, shiftY);
       // y на оси
       canvas.text('y', 0 + 0.4, WIN.BOTTOM + WIN.HEIGHT - 0.5, 'black');
-    }
+      }
     for (let i = Math.round(WIN.BOTTOM); i < WIN.BOTTOM + WIN.HEIGHT; i++) {
       canvas.line(len, i, -len, i, 'black', 2.5);
       canvas.text(i, shiftX, i + shiftY);
       // x на оси
       canvas.text('x', WIN.LEFT + WIN.WIDTH - 0.4, 0 + 0.3, 'black');
-    }
+      }
+    } 
   };
 
   const printRect = (event) => {
+    if(canvas){
     const x = Math.floor(canvas.x(event.offsetX));
     const y = Math.ceil(canvas.y(event.offsetY));
     canvas.drawRect(x, y, 1, 1, '#1be');
@@ -178,9 +185,12 @@ export default function Graph2D() {
         'black'
       );
     });
+    }
   };
   function renderCanvas(event = null) {
+    if(canvas){
     canvas.clear();
+    }
     printXY();
     if (event) {
       printRect(event);

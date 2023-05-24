@@ -1,22 +1,22 @@
-class FuncMath {
+export default class FuncMath {
   constructor({WIN, canvas}) {
     this.WIN = WIN;
     this.canvas = canvas;
   }
   
-  getDerivative(f, x0, dx = 0.00001) {return(f(x0 + dx) - f(x0)) / dx;}
+  getDerivative(f, x0:number, dx = 0.00001) {return(f(x0 + dx) - f(x0)) / dx;}
 
-  printTangent(f, x0) {
+  printTangent(f, x0:number) {
     const k = this.getDerivative(f, x0);
     let b = f(x0) - k * x0;
     let x1 = this.WIN.LEFT;
     let x2 = this.WIN.LEFT + this.WIN.WIDTH;
     let y = k * x1 + b;
     let y2 = k * x2 + b;
-    this.canvas.line(x1, y, x2, y2, 'black', 1, (9, 5));
+    this.canvas.line(x1, y, x2, y2, 'black', 1, ( 5));
   }
 
-  getIntegral(f, a, b, n = 100) {
+  getIntegral(f, a:number, b:number, n = 100) {
     const dx = (b - a) / n;
     let x = a;
     let s = 0;
@@ -27,7 +27,7 @@ class FuncMath {
     return s;
   }
 
-  getZero(f, a, b, eps) {
+  getZero(f, a=0, b=0, eps=0):number|null|undefined {
     if (f(a) * f(b) > 0) {
       return null;
     }
@@ -43,7 +43,7 @@ class FuncMath {
     }
   }
 
-  getCross(f, g, a, b, eps) {
+  getCross(f, g, a=0, b=0, eps=0):number|null|undefined {
     if ((f(a) - g(a)) * (f(b) - g(b)) > 0) {
       return null;
     }
@@ -60,7 +60,7 @@ class FuncMath {
   }
 }
 
-export default FuncMath;
+
 
 
 

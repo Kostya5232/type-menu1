@@ -1,11 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 
 class Cylinder extends Figure {
-    constructor(options = {}) {
-        const { r = 5, h = 5, count = 10, color = "ff0000", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points = [];
-        const edges = [];
-        const polygons = [];
+    constructor(options = {r : 5, h : 5, count : 10, color : "ff0000", animations : "", x : 0, y : 0, z : 0}) {
+        const { r , h , count , color , animations , x , y , z  } = options;
+        const points:Point[] = [];
+        const edges:Edge[] = [];
+        const polygons:Polygon[] = [];
         //точки
         for (let i = 0; i < count; i++) {
             const T = ((2 * Math.PI) / count) * i;
