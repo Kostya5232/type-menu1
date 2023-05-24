@@ -5,7 +5,7 @@ import usePolyCalculator from "./hooks/usePolyCalculator";
 
 import "./Calculator.css";
 
-const Calculator = () => {
+const Calculator:React.FC = () => {
     const refA = useRef(null);
     const refB = useRef(null);
     const refC = useRef(null);
@@ -41,7 +41,7 @@ const Calculator = () => {
                 <div>
                     <textarea ref={refPolyA} className="inputCalc" placeholder="Первый полином"></textarea>
                     <textarea ref={refPolyB} className="inputCalc" placeholder="Второй полином"></textarea>
-                    <textarea ref={refPolyC} type="number" placeholder="Значение x"></textarea>
+                    <textarea ref={refPolyC} typeof="number" placeholder="Значение x"></textarea>
                 </div>
                 <div>
                     <button className="operand-poly" onClick={() => calcPoly("add")}>

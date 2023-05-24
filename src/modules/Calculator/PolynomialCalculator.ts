@@ -2,7 +2,10 @@ import { Polynomial, Member, Complex } from "./entitites";
 import UniversalCalculator from "./UniversalCalculator";
 
 export default class PolynomialCalculator {
-    polynomial(members) {
+
+    members: {value:number, power:number}
+
+    polynomial(members: {value:number, power:number}) {
         return new Polynomial(members);
     }
 
