@@ -1,10 +1,11 @@
 export default class Vector {
-  constructor(values = []) {
+  values:number[]
+  constructor(values:number[] = []) {
     this.values = [];
     values.forEach((elem) => this.values.push(elem));
   }
 
-  toString() {
+  toString():string  {
     return `(${this.values.map((elem) => elem.toString()).join(',')})`;
   }
 }

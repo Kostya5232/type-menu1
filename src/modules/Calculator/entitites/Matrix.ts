@@ -1,5 +1,8 @@
 export default class Matrix {
-  constructor(values = [[]]) {
+
+  values:number[][]
+
+  constructor(values:number[][] = [[]]) {
     this.values = [];
     values.forEach((arr, i) => {
       this.values[i] = [];
@@ -7,7 +10,7 @@ export default class Matrix {
     });
   }
 
-  toString() {
+  toString():string  {
     return `[${this.values
       .map((arr) => arr.map((el) => el.toString()).join('; '))
       .join('|\n')

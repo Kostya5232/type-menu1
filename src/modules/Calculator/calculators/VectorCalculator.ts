@@ -1,15 +1,18 @@
-import { Vector } from '../entitites';
+import { Complex, Vector } from '../entitites';
 import ComplexCalculator from './ComplexCalculator';
 
 export default class VectorCalculator {
-  constructor(calc = new ComplexCalculator()) {
+
+  calc:ComplexCalculator;
+
+  constructor(calc:ComplexCalculator = new ComplexCalculator()) {
     this.calc = calc;
   }
 
   div() {
     return null;
   }
-  add(a, b) {
+  add(a:Complex[], b:Complex[]):Vector {
     return new Vector(
       a.values.map((elem, i) => this.calc.add(elem, b.values[i]))
     );

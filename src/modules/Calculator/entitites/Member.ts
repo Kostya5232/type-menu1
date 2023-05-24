@@ -1,10 +1,14 @@
 export default class Member {
-  constructor(value = 0, power = 0) {
+
+  value:number;
+  power:number;
+
+  constructor(value:number = 0, power:number = 0) {
     this.value = value - 0;
     this.power = power - 0;
   }
 
-  toString() {
+  toString():string {
     if (this.value === 0) return '';
     if (this.power === 0) return `${this.value}`;
     if (this.power === 1 && this.value === 1) return 'x';
