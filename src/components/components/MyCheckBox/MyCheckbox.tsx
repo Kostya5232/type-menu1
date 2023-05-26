@@ -1,4 +1,12 @@
-const MyCheckbox = ({ text, checked, onClick }) => {
+import React from "react";
+
+interface MyCheckboxProps{
+  text: string;
+  checked: boolean;
+  onClick
+}
+
+const MyCheckbox:React.FC<MyCheckboxProps> = ({ text, checked, onClick }) => {
   const id = `checkbox-${Math.random()}`;
   
   return (

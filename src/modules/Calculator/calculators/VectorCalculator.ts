@@ -52,16 +52,16 @@ export default class VectorCalculator {
     return c;
   }
 
-  one(length) {
-    const values = [];
+  one(length:number) {
+    const values:number[] = [];
     for (let i = 0; i < length; i++) {
       values.push(this.calc.one());
     }
     return new Vector(values);
   }
 
-  zero(length) {
-    const values = [];
+  zero(length:number) {
+    const values:number[] = [];
     for (let i = 0; i < length; i++) {
       values.push(this.calc.zero());
     }

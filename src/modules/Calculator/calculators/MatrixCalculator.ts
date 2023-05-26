@@ -1,7 +1,9 @@
-import { Matrix, Complex } from "../entitites";
+import { Matrix, Complex, Vector, Polynomial } from "../entitites";
 import ComplexCalculator from "./ComplexCalculator";
 
 export default class MatrixCalculator {
+
+    
 
     calc:ComplexCalculator;
 
@@ -32,11 +34,11 @@ export default class MatrixCalculator {
         return new Matrix(values);
     }
 
-    prod(p, a) {
-        return new Matrix(a.values.map((arr) => arr.map((elem) => this.calc.mult(elem, p))));
+    prod(p:Complex, a:Complex[]) {
+        return new Matrix(a.values.map((arr:number) => arr.map((elem: Matrix & Vector & Polynomial & Complex) => this.calc.mult(elem, p))));
     }
 
-    pow(a, p) {
+    pow(a:Complex[][], p:number) {
         let c = this.one(a.values.length, a.values[0][0]);
         for (let i = 0; i < p; i++) {
             c = this.mult(c, a);
@@ -45,8 +47,8 @@ export default class MatrixCalculator {
         return c;
     }
 
-    one(length) {
-        const values = [];
+    one(length:number) {
+        const values:number[][] = [];
         for (let i = 0; i < length; i++) {
             values.push([]);
             for (let j = 0; j < length; j++) {
@@ -56,8 +58,8 @@ export default class MatrixCalculator {
         return new Matrix(values);
     }
 
-    zero(length) {
-        const values = [];
+    zero(length:number) {
+        const values:Complex[][] = [];
         for (let i = 0; i < length; i++) {
             values.push([]);
             for (let j = 0; j < length; j++) {
