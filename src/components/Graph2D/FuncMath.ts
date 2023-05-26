@@ -1,4 +1,6 @@
+import { TWIN2D } from "../../modules/Canvas/TWIN";
 export default class FuncMath {
+  WIN:TWIN2D;
   constructor({WIN, canvas}) {
     this.WIN = WIN;
     this.canvas = canvas;
