@@ -1,4 +1,5 @@
 import { useRef } from "react";
+
 export default function CubeParams({ getFigure, figureName, setScene }) {
     const ref1 = useRef(null);
     const ref2 = useRef(null);
