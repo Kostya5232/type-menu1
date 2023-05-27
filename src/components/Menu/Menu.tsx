@@ -1,10 +1,10 @@
-import {EPAGES} from '../../App'
+import { EPAGES } from '../../App';
 
-interface IMenuProps{
-  showMenuItem:Function
+interface IMenuProps {
+  showMenuItem: Function
 }
 
-const Menu:React.FC<IMenuProps> = ({ showMenuItem }) => {
+const Menu: React.FC<IMenuProps> = ({ showMenuItem }) => {
   return (
     <div className="menu">
       <button className="showMenuItem" onClick={() => showMenuItem(EPAGES.CALCULATOR)}>

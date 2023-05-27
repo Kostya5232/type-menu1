@@ -1,10 +1,14 @@
 import { useState, useCallback } from "react";
-
 import useGetFigure from "./useGetFigure";
+import { ConeParams, CubeParams, CylinderParams, EllipsoidParams, EllipticalParabaloidParams, HyperbolicParaboloidParams, HyperbolicCylinderParams, OneWayHyperboloidParams, ParabalidCylinderParams, SphereParams, TorParams, TwoWayHyperboloidParams } from './figures';
+import { TScene } from "../Graph3D";
 
-import{ConeParams, CubeParams, CylinderParams, EllipsoidParams, EllipticalParabaloidParams, HyperbolicParaboloidParams, HyperbolicCylinderParams, OneWayHyperboloidParams, ParabalidCylinderParams, SphereParams, TorParams, TwoWayHyperboloidParams} from './figures'
+export interface IFigureParamsProps {
+    setScene: (scene: TScene) => void;
+}
 
-export default function FigureParams({ setScene }) {
+const FigureParams: React.FC<IFigureParamsProps> = (props: IFigureParamsProps) => {
+    const { setScene } = props;
     const [figureName, setFigureName] = useState(null);
 
     const getFigure = useGetFigure();
@@ -90,6 +94,6 @@ export default function FigureParams({ setScene }) {
             )}
         </div>
     );
-
-  
 }
+
+export default FigureParams;

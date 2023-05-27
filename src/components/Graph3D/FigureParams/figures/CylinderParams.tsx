@@ -1,20 +1,27 @@
 import { useRef } from "react";
-export default function CylinderParams({ getFigure, figureName, setScene }) {
-    const ref1 = useRef(null);
-    const ref2 = useRef(null);
-    const ref3 = useRef(null);
-    const ref4 = useRef(null);
-    const ref5 = useRef(null);
-    const ref6 = useRef(null);
-    const ref7 = useRef(null);
+import { IFigureParamsProps } from "../FigureParams";
+
+interface ICylinderParamsProps extends IFigureParamsProps {
+    getFigure: () => void;
+    figureName: string;
+}
+
+const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsProps) => {
+    const { getFigure, figureName, setScene } = props;
+    const ref1 = useRef<HTMLInputElement>(null);
+    const ref2 = useRef<HTMLInputElement>(null);
+    const ref3 = useRef<HTMLInputElement>(null);
+    const ref4 = useRef<HTMLInputElement>(null);
+    const ref5 = useRef<HTMLInputElement>(null);
+    const ref6 = useRef<HTMLInputElement>(null);
+    const ref7 = useRef<HTMLInputElement>(null);
     const refAnim = useRef(null);
 
-
     const onChange = () => {
-        const color = ref1.current.value;
-        const x = ref2.current.value - 0;
-        const y = ref3.current.value - 0;
-        const z = ref4.current.value - 0;
+        const color = ref1.current?.value;
+        const x = parseFloat(ref2.current?.value as string);
+        const y = parseFloat(ref3.current?.value as string);
+        const z = ref4.current?.value - 0;
 
         const r = ref5.current.value - 0;
         const h = ref6.current.value - 0;
@@ -55,3 +62,5 @@ export default function CylinderParams({ getFigure, figureName, setScene }) {
         </div>
     );
 }
+
+export default CylinderParams;

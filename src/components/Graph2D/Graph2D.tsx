@@ -1,4 +1,4 @@
-{ useEffect } from 'react';
+import { useEffect } from 'react';
 import Canvas from '../../modules/Canvas/Canvas';
 import FuncMath from './FuncMath';
 import UIComponent from './UI/UIComponent';

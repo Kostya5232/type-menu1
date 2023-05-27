@@ -2,14 +2,13 @@ import { Figure, Point, Edge, Polygon } from "../entities";
 
 class Cone extends Figure {
     constructor(options = {r : 2, count : 8, color : "lightgreen", animations : "", x : 0,y : 0, z : 0 }) {
+        super();
         const {r, count , color , animations, x ,y, z } = options;
         
         //const {r = 2, count = 8, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
         const points:Point[] = []
         const edges:Edge[] = [];
         const polygons:Polygon[] = [];
-        
-
     
         //точки
         for (let i = -count; i <= count; i++) {
@@ -40,7 +39,9 @@ class Cone extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
-        super(points, edges, polygons, animations);
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons;
     }
 }
 

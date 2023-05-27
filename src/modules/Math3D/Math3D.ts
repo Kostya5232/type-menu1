@@ -1,17 +1,21 @@
+import { TScene } from "../../components/Graph3D/Graph3D";
 import { TWIN3D } from "../Canvas/TWIN";
 import { Figure, Light, Point } from "./entities";
 import Polygon, { EDistance } from "./entities/Polygon";
 
-interface IMath3DOptions{
-  WIN:TWIN3D
+interface IMath3DOptions {
+  WIN: TWIN3D
 }
 
 type TMatrix = number[][];
 type TVector = number[];
-type TShadow = {isShadow:boolean, dark?:number};
+type TShadow = {
+  isShadow: boolean,
+  dark?: number
+};
 
-export enum ETransform{
-  zoom='zoom',
+export enum ETransform {
+  zoom = 'zoom',
   move = 'move',
   rotateOx = 'rotateOx',
   rotateOy = 'rotateOy',
@@ -19,26 +23,26 @@ export enum ETransform{
 }
 
 export default class Math3D {
-  WIN:TWIN3D;
-  constructor(options:IMath3DOptions) {
-    const {WIN} = options;
+  WIN: TWIN3D;
+  constructor(options: IMath3DOptions) {
+    const { WIN } = options;
     this.WIN = WIN;
   }
 
-  xs(point:Point) {
+  xs(point: Point): number {
     const zs = this.WIN.FOCUS.z;
     const zo = this.WIN.CAMERA.z;
     const xo = this.WIN.CAMERA.x;
     return ((point.x - xo) / (point.z - zo)) * (zs - zo) + xo;
   }
-  ys(point:Point) {
+  ys(point: Point): number {
     const zs = this.WIN.FOCUS.z;
     const zo = this.WIN.CAMERA.z;
     const yo = this.WIN.CAMERA.y;
     return ((point.y - yo) / (point.z - zo)) * (zs - zo) + yo;
   }
 
-  calcCenter(figure:Figure) {
+  calcCenter(figure: Figure): void {
     figure.polygons.forEach((polygon) => {
       const points = polygon.points;
       let x = 0;
@@ -55,26 +59,26 @@ export default class Math3D {
     });
   }
 
-  calcDisctance(figure:Figure, endPoint:Point, name:EDistance):void {
+  calcDisctance(figure: Figure, endPoint: Point, name: EDistance): void {
     figure.polygons.forEach((polygon) => {
       polygon[name] = Math.sqrt(
         Math.pow(endPoint.x - polygon.center.x, 2) +
-          Math.pow(endPoint.y - polygon.center.y, 2) +
-          Math.pow(endPoint.z - polygon.center.z, 2)
+        Math.pow(endPoint.y - polygon.center.y, 2) +
+        Math.pow(endPoint.z - polygon.center.z, 2)
       );
     });
   }
 
-  sortByArtistAlgorithm(polygons: Polygon[]) {
+  sortByArtistAlgorithm(polygons: Polygon[]): void {
     polygons.sort((a, b) => b.distance - a.distance);
   }
 
-  calcIllumination(distance: number, lumen: number) {
+  calcIllumination(distance: number, lumen: number): number {
     const res = distance ? lumen / Math.pow(distance, 3) : 1;
     return res > 1 ? 1 : res;
   }
 
-  mult(T:TMatrix, m:TVector) {
+  mult(T: TMatrix, m: TVector) {
     const c = [0, 0, 0, 0];
     for (let i = 0; i < T.length; i++) {
       let s = 0;
@@ -86,7 +90,7 @@ export default class Math3D {
     return c;
   }
 
-  multMatrix(a:TMatrix, b:TMatrix) {
+  multMatrix(a: TMatrix, b: TMatrix): TMatrix {
     const c = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
@@ -105,9 +109,9 @@ export default class Math3D {
     return c;
   }
 
-  getTransformMatrix(...args:TMatrix):TMatrix {
+  getTransformMatrix(...args: TMatrix[]): TMatrix {
     const result = args.reduce(
-      (s:any, t:any) => this.multMatrix(s, t),
+      (s: any, t: any) => this.multMatrix(s, t),
       [
         [1, 0, 0, 0],
         [0, 1, 0, 0],
@@ -118,7 +122,14 @@ export default class Math3D {
     return result;
   }
 
-  [ETransform.zoom](delta:number):TMatrix {
+  transform(matrix: TMatrix, point: Point): void {
+    const result = this.mult(matrix, [point.x, point.y, point.z, 0]);
+    point.x = result[0];
+    point.y = result[1];
+    point.z = result[2];
+  }
+
+  [ETransform.zoom](delta: number): TMatrix {
     return [
       [delta, 0, 0, 0],
       [0, delta, 0, 0],
@@ -127,14 +138,7 @@ export default class Math3D {
     ];
   }
 
-  transform(matrix:TMatrix, point:Point) {
-    const result = this.mult(matrix, [point.x, point.y, point.z, 0]);
-    point.x = result[0];
-    point.y = result[1];
-    point.z = result[2];
-  }
-
-  [ETransform.rotateOx](alpha:number):TMatrix {
+  [ETransform.rotateOx](alpha: number): TMatrix {
     return [
       [1, 0, 0, 0],
       [0, Math.cos(alpha), Math.sin(alpha), 0],
@@ -143,7 +147,7 @@ export default class Math3D {
     ];
   }
 
-  [ETransform.rotateOy](alpha:number):TMatrix {
+  [ETransform.rotateOy](alpha: number): TMatrix {
     return [
       [Math.cos(alpha), 0, -Math.sin(alpha), 0],
       [0, 1, 0, 0],
@@ -152,7 +156,7 @@ export default class Math3D {
     ];
   }
 
-  [ETransform.rotateOz](alpha:number):TMatrix {
+  [ETransform.rotateOz](alpha: number): TMatrix {
     return [
       [Math.cos(alpha), Math.sin(alpha), 0, 0],
       [-Math.sin(alpha), Math.cos(alpha), 0, 0],
@@ -161,7 +165,7 @@ export default class Math3D {
     ];
   }
 
-  [ETransform.move](x:number, y:number, z:number):TMatrix {
+  [ETransform.move](x: number, y: number = 1, z: number = 1): TMatrix {
     return [
       [1, 0, 0, 0],
       [0, 1, 0, 0],
@@ -170,7 +174,7 @@ export default class Math3D {
     ];
   }
 
-  calcVector(a:Point, b:Point) {
+  calcVector(a: Point, b: Point): Point {
     return {
       x: b.x - a.x,
       y: b.y - a.y,
@@ -178,7 +182,7 @@ export default class Math3D {
     };
   }
 
-  vectorProd(a:Point, b:Point) {
+  vectorProd(a: Point, b: Point): Point {
     return {
       x: a.y * b.z - a.z * b.y,
       y: -a.x * b.z + a.z * b.x,
@@ -186,11 +190,11 @@ export default class Math3D {
     };
   }
 
-  calcVectorModule(a:Point) {
+  calcVectorModule(a: Point): number {
     return Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
   }
 
-  calcRadius(figure:Figure) {
+  calcRadius(figure: Figure): void {
     const points = figure.points;
     figure.polygons.forEach((polygon) => {
       const center = polygon.center;
@@ -206,7 +210,7 @@ export default class Math3D {
     });
   }
 
-  calcShadow(polygon:Polygon, figures:Figure[], LIGHT:Light):TShadow {
+  calcShadow(polygon: Polygon, figures: TScene, LIGHT: Light): TShadow {
     const M1 = polygon.center;
     const r = polygon.R;
     const s = this.calcVector(M1, LIGHT);
