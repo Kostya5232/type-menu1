@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { IFigureParamsProps } from "../FigureParams";
+import { Figure } from "../../../../modules/Math3D";
 
 interface ICylinderParamsProps extends IFigureParamsProps {
-    getFigure: () => void;
+    getFigure: (a:string, b:IFigureParamsProps) => Figure;
     figureName: string;
 }
 
@@ -15,22 +16,19 @@ const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsPr
     const ref5 = useRef<HTMLInputElement>(null);
     const ref6 = useRef<HTMLInputElement>(null);
     const ref7 = useRef<HTMLInputElement>(null);
-    const refAnim = useRef(null);
 
     const onChange = () => {
+        const r =Number( ref5.current?.value);
+        const h = Number(ref6.current?.value );
+        const count = Number(ref7.current?.value);
         const color = ref1.current?.value;
-        const x = parseFloat(ref2.current?.value as string);
-        const y = parseFloat(ref3.current?.value as string);
-        const z = ref4.current?.value - 0;
-
-        const r = ref5.current.value - 0;
-        const h = ref6.current.value - 0;
-        const count = ref7.current.value - 0;
-        const animations = refAnim.current.value;
+        const x = Number(ref2.current?.value);
+        const y = Number(ref3.current?.value);
+        const z = Number(ref4.current?.value);
 
 
         if (color) {
-            setScene([getFigure(figureName, { r, h, count, color, animations,x, y, z })]);
+            setScene([getFigure(figureName, { r, h, count, color,x, y, z })]);
         }
     };
 
@@ -44,9 +42,6 @@ const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsPr
             <br></br>
             <span>Плотность точек: </span>
             <input ref={ref7} onChange={onChange} defaultValue={20} />
-            <br></br>
-            <span>Анимации</span>
-            <input ref={refAnim} onChange={onChange}/>
             <br></br>
             <span>Выбор цвета: </span>
             <input ref={ref1} type="color" onChange={onChange} />

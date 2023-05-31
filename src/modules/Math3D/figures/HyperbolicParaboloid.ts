@@ -1,11 +1,17 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
 
+interface THyperbolicParaboloidOptions extends IidenticalParam {
+    p:number;
+    q:number;
+}
 class HyperbolicParaboloid extends Figure {
-    constructor(options = {p : 3, q : 4, count : 10, color : "lightgreen", animations : "", x : 0, y : 0, z : 0}) {
-        const { p , q , count, color , animations, x , y , z  } = options;
-        const points:Point[] = [];
-        const edges:Edge[] = [];
-        const polygons:Polygon[] = [];
+    constructor(options: THyperbolicParaboloidOptions) {
+        super();
+        const { p = 4  , q = 4 , count = 20, color = 'lightgreen' , x = 0 , y = 0 , z = 0} = options;
+        const points = [];
+        const edges = [];
+        const polygons = [];
 
         for (let i = 0; i < count; i++) {
             for (let j = 0; j < count; j++) {
@@ -35,7 +41,9 @@ class HyperbolicParaboloid extends Figure {
             }
         }
 
-        super(points, edges, polygons, animations);
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons
     }
 }
 

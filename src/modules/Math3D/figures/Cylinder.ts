@@ -1,11 +1,18 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
+
+interface TCylinderOptions extends IidenticalParam {
+    r:number;
+    h:number;
+}
 
 class Cylinder extends Figure {
-    constructor(options = {r : 5, h : 5, count : 10, color : "ff0000", animations : "", x : 0, y : 0, z : 0}) {
-        const { r , h , count , color , animations , x , y , z  } = options;
-        const points:Point[] = [];
-        const edges:Edge[] = [];
-        const polygons:Polygon[] = [];
+    constructor(options:TCylinderOptions) {
+        super()
+        const { r = 5 , h = 5 , count = 10 , color = 'ff0000' , x = 0 , y = 0 , z = 0  } = options;
+        const points= [];
+        const edges = [];
+        const polygons = [];
         //точки
         for (let i = 0; i < count; i++) {
             const T = ((2 * Math.PI) / count) * i;
@@ -39,7 +46,9 @@ class Cylinder extends Figure {
             }
         }
 
-        super(points, edges, polygons, animations);
+        this.points = points
+        this.edges = edges
+        this.polygons = polygons
     }
 }
 

@@ -1,11 +1,17 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
+interface TEllipticalParabaloidOptions extends IidenticalParam {
+    a:number;
+    b:number;
+}
 
 class EllipticalParabaloid extends Figure {
-    constructor(options = { a: 10, b: 5, count: 20, color: "lightgreen", animations: "", x: 0, y: 0, z: 0 }) {
-        const { a , b , count , color , animations , x , y , z } = options;
-        const points: Point[] = [];
-        const edges: Edge[] = [];
-        const polygons: Polygon[] = [];
+    constructor(options:TEllipticalParabaloidOptions) {
+        super()
+        const { a = 10 , b = 5  , count = 20 , color = 'lightgreen' , x = 0 , y = 0 , z = 0 } = options;
+        const points = [];
+        const edges = [];
+        const polygons = [];
 
         for (let i = 0; i <= count; i++) {
             const T = ((2 * Math.PI) / count) * i;
@@ -33,7 +39,9 @@ class EllipticalParabaloid extends Figure {
             }
         }
 
-        super(points, edges, polygons, animations);
+        this.points = points
+        this.edges = edges
+        this.polygons = polygons
     }
 }
 

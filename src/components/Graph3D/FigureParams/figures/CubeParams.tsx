@@ -16,7 +16,7 @@ export default function CubeParams({ getFigure, figureName, setScene }) {
         const animations = refAnim.current.value;
         
         if (color) {
-            setScene([getFigure(figureName, { color, animations, x, y, z })]);
+            setScene([getFigure(figureName, { color, x, y, z })]);
         }
     };
 

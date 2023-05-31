@@ -1,11 +1,18 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
+
+interface TTorOptions extends IidenticalParam {
+    R:number;
+    r:number;
+}
 
 class Tor extends Figure {
-    constructor(options = {R : 13, r : 5, count : 15, color : "lightgreen", animations : "", x : 0, y : 0, z : 0 }) {
-        const {R, r, count, color, animations, x, y, z } = options;
-        const points:Point[] = [];
-        const edges:Edge[] = [];
-        const polygons:Polygon[] = [];
+    constructor(options:TTorOptions) {
+        super()
+        const {R = 13 , r = 5 , count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
+        const points = [];
+        const edges = [];
+        const polygons = [];
         for (let i = 0; i < count; i++) {
             const T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
@@ -40,7 +47,9 @@ class Tor extends Figure {
         }
         polygons.push(new Polygon([0, count - 1, points.length - 1, points.length - count], color));
 
-        super(points, edges, polygons, animations);
+        this.points = points
+        this.edges = edges
+        this.polygons = polygons
     }
 }
 

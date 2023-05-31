@@ -1,16 +1,17 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
+interface TConeOptions extends IidenticalParam {
+    r:number;
+}
 
 class Cone extends Figure {
-    constructor(options = {r : 2, count : 8, color : "lightgreen", animations : "", x : 0,y : 0, z : 0 }) {
+    constructor(options:TConeOptions) {
         super();
-        const {r, count , color , animations, x ,y, z } = options;
-        
-        //const {r = 2, count = 8, color = "lightgreen", animations = "", x = 0, y = 0, z = 0 } = options;
-        const points:Point[] = []
-        const edges:Edge[] = [];
-        const polygons:Polygon[] = [];
+        const {r=2, count =8, color = 'lightgreen' , x=0 ,y=0, z=0 } = options;
+        const points = []
+        const edges = [];
+        const polygons = [];
     
-        //точки
         for (let i = -count; i <= count; i++) {
             const T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
@@ -19,7 +20,6 @@ class Cone extends Figure {
             }
         }
 
-        //ребра
         for (let i = 0; i < points.length; i++) {
             if (i + 1 < points.length && (i + 1) % count !== 0) {
                 edges.push(new Edge(i, i + 1));
@@ -31,7 +31,6 @@ class Cone extends Figure {
             }
         }
 
-        // полигоны
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));

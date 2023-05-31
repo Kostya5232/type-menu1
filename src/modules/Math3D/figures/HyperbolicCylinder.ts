@@ -1,11 +1,17 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
+interface THyperbolicCylinderOptions extends IidenticalParam {
+    a:number;
+    b:number;
+}
 
 class HyperbolicCylinder extends Figure {
-    constructor(options = { a: 10, b: 10, count: 20, color: "lightgreen", animations: "", x: 0, y: 0, z: 0 }) {
-        const { a , b , count , color , animations , x , y , z } = options;
-        const points: Point[] = [];
-        const edges: Edge[] = [];
-        const polygons: Polygon[] = [];
+    constructor(options: THyperbolicCylinderOptions) {
+        super()
+        const { a = 10 , b = 10 , count = 20 , color = "lightgreen" , x = 0 , y = 0 , z = 0 } = options;
+        const points= [];
+        const edges = [];
+        const polygons = [];
 
         for (let i = -count / 2; i <= count / 2; i++) {
             const T = (Math.PI / count) * i;
@@ -43,8 +49,9 @@ class HyperbolicCylinder extends Figure {
                 polygons.push(new Polygon([i, i + 1, count + i + 1, count + i], color));
             }
         }
-
-        super(points, edges, polygons, animations);
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons;
     }
 }
 

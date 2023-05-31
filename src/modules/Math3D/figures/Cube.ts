@@ -1,11 +1,7 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
+import { IidenticalParam } from "./IidenticalParam";
 
-type TCubeOptions = {
-    color?: string, 
-    x?: number, 
-    y?: number, 
-    z?: number
-}
+interface TCubeOptions extends IidenticalParam {}
 
 class Cube extends Figure {
     constructor(options: TCubeOptions) {

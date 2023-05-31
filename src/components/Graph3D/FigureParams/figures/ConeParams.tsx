@@ -1,12 +1,19 @@
 import { useRef } from "react";
-export default function ConeParams({ getFigure, figureName, setScene }) {
+import { IFigureParamsProps } from "../FigureParams";
+import { Figure } from "../../../../modules/Math3D";
+import { IidenticalParam } from "../../../../modules/Math3D/figures/IidenticalParam";
+interface IConeParamsProps extends IFigureParamsProps {
+    getFigure: (a:string, b:IidenticalParam) => Figure;
+    figureName: string;
+}
+const ConeParams:React.FC<IConeParamsProps> = ({ getFigure, figureName, setScene }) => {
     const refColor = useRef(null);
-    const refX = useRef(null);
-    const refY = useRef(null);
-    const refZ = useRef(null);
-    const refR = useRef(null);
-    const refCount = useRef(null);
-    const refAnim = useRef(null);
+    const refX = useRef<HTMLInputElement>(null);
+    const refY = useRef<HTMLInputElement>(null);
+    const refZ = useRef<HTMLInputElement>(null);
+    const refR = useRef<HTMLInputElement>(null);
+    const refCount = useRef<HTMLInputElement>(null);
+    const refAnim = useRef<HTMLInputElement>(null);
 
     const onChange = () => {
         const color = refColor.current.value;
@@ -20,7 +27,7 @@ export default function ConeParams({ getFigure, figureName, setScene }) {
        
 
         if (color) {
-            setScene([getFigure(figureName, { r, count, color, animations, x, y, z })]);
+            setScene([getFigure(figureName, { r, count, color,  x, y, z })]);
         }
     };
 
@@ -50,3 +57,4 @@ export default function ConeParams({ getFigure, figureName, setScene }) {
         </div>
     );
 }
+export default ConeParams;

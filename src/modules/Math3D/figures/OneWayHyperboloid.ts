@@ -1,8 +1,14 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
-
+import { IidenticalParam } from "./IidenticalParam";
+interface TOneWayHyperboloidOptions extends IidenticalParam {
+    a:number;
+    b:number;
+    c:number;
+}
 class OneWayHyperboloid extends Figure {
-    constructor(options = {a :2, b : 3, c : 4, count : 20, color : "lightgreen", animations : "", x : 0, y : 0, z : 0}) {
-        const { a , b , c , count , color , animations , x , y , z  } = options;
+    constructor(options:TOneWayHyperboloidOptions) {
+        super()
+        const { a = 2  , b = 3 , c = 4 , count = 20 , color = "lightgreen" , x = 0 , y = 0 , z = 0} = options;
         const points:Point[] = [];
         const edges:Edge[] = [];
         const polygons:Polygon[] = [];
@@ -67,7 +73,9 @@ class OneWayHyperboloid extends Figure {
             );
         }
 
-        super(points, edges, polygons, animations);
+        this.points = points
+        this.edges = edges
+        this.polygons = polygons
     }
 }
 
