@@ -23,7 +23,7 @@ export default class Polynomial {
     );
   }
 
-  toString():string {
+  toString(): string {
     if (this.poly.length === 0) return '0';
     if (this.poly.length === 1) return this.poly[0].toString();
     return this.poly

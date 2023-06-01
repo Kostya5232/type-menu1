@@ -1,30 +1,32 @@
+import ICalculator from '../ICalculatror';
 import { Complex, Vector } from '../entitites';
+import AnyType from '../entitites/AnyType';
 import ComplexCalculator from './ComplexCalculator';
 
-export default class VectorCalculator {
+export default class VectorCalculator implements ICalculator<Vector> {
 
-  calc:ComplexCalculator;
+  calc: ICalculator<AnyType>
 
-  constructor(calc:ComplexCalculator = new ComplexCalculator()) {
+  constructor(calc: ICalculator<AnyType> = new ComplexCalculator()) {
     this.calc = calc;
   }
 
   div() {
     return null;
   }
-  add(a:Complex[], b:Complex[]):Vector {
+  add(a: Vector, b: Vector): Vector {
     return new Vector(
       a.values.map((elem, i) => this.calc.add(elem, b.values[i]))
     );
   }
 
-  sub(a, b) {
+  sub(a: Vector, b: Vector): Vector {
     return new Vector(
       a.values.map((elem, i) => this.calc.sub(elem, b.values[i]))
     );
   }
 
-  mult(a, b) {
+  mult(a: Vector, b: Vector): Vector {
     return new Vector([
       this.calc.sub(
         this.calc.mult(a.values[1], b.values[2]),
@@ -40,28 +42,28 @@ export default class VectorCalculator {
       ),
     ]);
   }
-  prod(p, a) {
+  prod(p: number, a: Vector): Vector {
     return new Vector(a.values.map((elem) => this.calc.mult(elem, p)));
   }
 
-  pow(a, p) {
-    let c = this.one(a.values.length, a.values[0]);
+  pow(a: Vector, p: number): Vector {
+    let c = this.one(a.values.length);
     for (let i = 0; i < p; i++) {
       c = this.mult(a, c);
     }
     return c;
   }
 
-  one(length:number) {
-    const values:number[] = [];
+  one(length: number): Vector {
+    const values: Vector[] = [];
     for (let i = 0; i < length; i++) {
       values.push(this.calc.one());
     }
     return new Vector(values);
   }
 
-  zero(length:number) {
-    const values:number[] = [];
+  zero(length: number): Vector {
+    const values: Vector[] = [];
     for (let i = 0; i < length; i++) {
       values.push(this.calc.zero());
     }
