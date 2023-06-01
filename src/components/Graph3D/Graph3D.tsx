@@ -21,7 +21,7 @@ const Graph3D: React.FC = () => {
         FOCUS: new Point(0, 0, 30),
         CAMERA: new Point(0, 0, 40),
     };
-    const LIGHT = new Light(-10, 10, 10, 30000);
+    const LIGHT = new Light(-10, 10, 10, 3000000);
     let scene: TScene = [];
 
     let canRotate = false;

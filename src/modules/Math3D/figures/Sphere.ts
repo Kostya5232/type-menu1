@@ -1,17 +1,16 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-export interface TSphereOptions extends IidenticalParam {
-    r:number;
-    count:number
-
+interface TSphereOptions extends IidenticalParam {
+    r: number;
+    count: number;
 }
 
 class Sphere extends Figure {
     constructor(options: TSphereOptions) {
-        super()
-        const {r = 10, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
-        const points= [];
+        super();
+        const { r = 10, count = 20, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
+        const points = [];
         const edges = [];
         const polygons = [];
 
@@ -41,9 +40,9 @@ class Sphere extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
-        this.points = points
-        this.edges = edges
-        this.polygons = polygons
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons;
     }
 }
 
