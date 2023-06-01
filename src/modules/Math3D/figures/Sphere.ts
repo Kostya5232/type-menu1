@@ -1,7 +1,7 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-interface TSphereOptions extends IidenticalParam {
+export interface TSphereOptions extends IidenticalParam {
     r: number;
     count: number;
 }
