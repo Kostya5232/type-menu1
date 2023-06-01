@@ -1,21 +1,32 @@
 import { Complex, Vector, Matrix, Polynomial } from "./entitites";
 import { ComplexCalculator, VectorCalculator, MatrixCalculator } from "./calculators";
 import PolynomialCalculator from "./PolynomialCalculator";
+import ICalculator from "./ICalculatror";
+import AnyType from "./entitites/AnyType";
 
+export enum EOperand {
+  add = "add",
+  sub = "sub",
+  mult = "mult",
+  div = "div",
+  prod = "prod",
+  pow = "pow",
+  one = "one",
+  zero = "zero",
+}
 
-
-export default class UniversalCalculator {
-  complex(re:number, im:number) {
+export default class UniversalCalculator implements ICalculator<AnyType> {
+  complex(re?: number, im?: number): Complex {
     return new Complex(re, im);
   }
-  vector(values:number[]):Vector {
+  vector(values?: AnyType[]): Vector {
     return new Vector(values);
   }
-  matrix(values:number[][]):Matrix {
+  matrix(values?: AnyType[][]): Matrix {
     return new Matrix(values);
   }
 
-  getComplex(str:string):Complex {
+  getComplex(str: string): AnyType {
     const arr = str.split('i');
     if (arr.length === 2) {
       const ch = arr[0].substring(arr[0].length - 1);
@@ -33,17 +44,17 @@ export default class UniversalCalculator {
     return new Complex(Number(str));
   }
 
-  getVector(str:string):Vector {
+  getVector(str: string): AnyType {
     const arr = str.slice(1, str.length - 1).split(',');
-    return new Vector(arr.map((elem:string) => this.getEntity(elem)));
+    return new Vector(arr.map((elem: string) => this.getEntity(elem)));
   }
 
-  getMatrix(str:string):Matrix {
-    const arr:string[] = str.slice(1, str.length - 1).split('|');
-    return new Matrix(arr.map((elems:string) => elems.split(';').map((elem) => this.getEntity(elem))));
+  getMatrix(str: string): AnyType {
+    const arr: string[] = str.slice(1, str.length - 1).split('|');
+    return new Matrix(arr.map((elems: string) => elems.split(';').map((elem) => this.getEntity(elem))));
   }
 
-  getEntity(str:string): number | Vector | Matrix | Complex {
+  getEntity(str: string): AnyType {
     str = str.replaceAll(' ', '').replaceAll('\n', '');
     if (str.includes('[')) {
       return this.getMatrix(str);
@@ -57,31 +68,31 @@ export default class UniversalCalculator {
     return this.complex(Number(str), 0);
   }
 
-  add(a:Matrix | Vector | Polynomial | Complex, b:number) {
+  [EOperand.add](a: AnyType, b: AnyType): AnyType {
     return this.get(a).add(a, b);
   }
 
-  sub(a:Matrix | Vector | Polynomial | Complex, b:number) {
+  [EOperand.sub](a: AnyType, b: AnyType): AnyType {
     return this.get(a).sub(a, b);
   }
 
-  mult(a:Matrix | Vector | Polynomial | Complex, b:number) {
+  [EOperand.mult](a: AnyType, b: AnyType): AnyType {
     return this.get(a).mult(a, b);
   }
 
-  div(a:Matrix | Vector | Polynomial | Complex, b:number) {
+  [EOperand.div](a: AnyType, b: AnyType): AnyType | null {
     return this.get(a).div(a, b);
   }
 
-  prod(p:Complex, a:Complex) {
+  [EOperand.prod](p: number, a: AnyType): AnyType {
     return this.get(a).prod(p, a);
   }
 
-  pow(a:number, p:Complex) {
+  [EOperand.pow](a: AnyType, p: number): AnyType {
     return this.get(a).pow(a, p);
   }
 
-  zero(elem:number) {
+  [EOperand.zero](elem: AnyType | number): AnyType {
     const type = elem ? elem.constructor.name : null;
     switch (type) {
       case 'Vector':
@@ -93,7 +104,7 @@ export default class UniversalCalculator {
     }
   }
 
-  one(elem: Matrix | Vector | Complex): Matrix | Vector | Complex {
+  [EOperand.one](elem: AnyType | number): AnyType {
     const type = elem ? elem.constructor.name : null;
     switch (type) {
       case 'Vector':
@@ -105,7 +116,7 @@ export default class UniversalCalculator {
     }
   }
 
-  get(elem: Matrix | Vector | Polynomial | Complex): MatrixCalculator | VectorCalculator | PolynomialCalculator | ComplexCalculator {
+  get(elem?: AnyType): ICalculator<AnyType> {
     if (elem instanceof Matrix) return new MatrixCalculator(this.get(elem.values[0][0]));
     if (elem instanceof Vector) return new VectorCalculator(this.get(elem.values[0]));
     if (elem instanceof Polynomial) return new PolynomialCalculator(this.get(elem.values[0]));

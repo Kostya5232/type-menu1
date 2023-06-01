@@ -1,15 +1,25 @@
 import { Polynomial, Member, Complex } from "./entitites";
 import UniversalCalculator from "./UniversalCalculator";
 
+export enum EPolyOperand {
+    add = "add",
+    sub = "sub",
+    mult = "mult",
+}
+
 export default class PolynomialCalculator {
 
-    members: {value:number, power:number}
+    members: { value: number, power: number }[]
 
-    polynomial(members: {value:number, power:number}) {
+    constructor() {
+        this.members = [];
+    }
+
+    polynomial(members: { value: number, power: number }[]) {
         return new Polynomial(members);
     }
 
-    getPolynomial(str) {
+    getPolynomial(str: string) {
         str = str.replaceAll(" ", "").replaceAll("\n", "");
         if (str) {
             const arr = str.split("+");
@@ -23,7 +33,7 @@ export default class PolynomialCalculator {
         return new Polynomial();
     }
 
-    getMember(str) {
+    getMember(str: string) {
         if (str) {
             const arr = str.split("x");
             if (arr.length === 1) return new Member(arr[0]);
@@ -37,7 +47,7 @@ export default class PolynomialCalculator {
         return new Member();
     }
 
-    add(a, b) {
+    [EPolyOperand.add](a, b) {
         const calc = new UniversalCalculator();
         const members = [];
         a.poly.forEach((elemA) => {
@@ -56,7 +66,7 @@ export default class PolynomialCalculator {
         return this.polynomial(members);
     }
 
-    sub(a, b) {
+    [EPolyOperand.sub](a, b) {
         const calc = new UniversalCalculator();
         const members = [];
         a.poly.forEach((elemA) => {
@@ -76,7 +86,7 @@ export default class PolynomialCalculator {
         return this.polynomial(members);
     }
 
-    mult(a, b) {
+    [EPolyOperand.mult](a, b) {
         const calc = new UniversalCalculator();
         let polynomial = this.polynomial();
         a.poly.forEach((elemA) => {

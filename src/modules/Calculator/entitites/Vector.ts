@@ -1,11 +1,13 @@
+import AnyType from "./AnyType";
+
 export default class Vector {
-  values:number[]
-  constructor(values:number[] = []) {
+  values: AnyType[]
+  constructor(values: AnyType[] = []) {
     this.values = [];
     values.forEach((elem) => this.values.push(elem));
   }
 
-  toString():string  {
+  toString(): string {
     return `(${this.values.map((elem) => elem.toString()).join(',')})`;
   }
 }

@@ -1,16 +1,61 @@
 import UniversalCalculator from "../../../modules/Calculator";
+import { EOperand } from "../../../modules/Calculator/UniversalCalculator";
 
-export default function useCalculator(refA: React.RefObject<HTMLInputElement>, refB: React.RefObject<HTMLInputElement>, refC: React.RefObject<HTMLInputElement>) {
-    const calc:UniversalCalculator = new UniversalCalculator();
+export default function useCalculator(refA: React.RefObject<HTMLTextAreaElement>, refB: React.RefObject<HTMLTextAreaElement>, refC: React.RefObject<HTMLTextAreaElement>) {
+    const calc = new UniversalCalculator();
 
-    return (operand:string) => {
-        if (refA.current && refB.current && refC.current) {
-            const A = refA.current.value;
-            const B = refB.current.value;
-            refC.current.value = calc[operand](
-                calc.getEntity(A),
-                calc.getEntity(B)
-            ).toString();
+    return (operand: EOperand) => {
+        if (refA && refB && refC) {
+            const A = refA.current?.value || '';
+            const B = refB.current?.value || '';
+            if (refC.current) {
+                if (operand === EOperand.add) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A),
+                        calc.getEntity(B)
+                    )?.toString() || '';
+                }
+                if (operand === EOperand.sub) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A),
+                        calc.getEntity(B)
+                    )?.toString() || '';
+                }
+                if (operand === EOperand.mult) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A),
+                        calc.getEntity(B)
+                    )?.toString() || '';
+                }
+                if (operand === EOperand.div) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A),
+                        calc.getEntity(B)
+                    )?.toString() || '';
+                }
+                if (operand === EOperand.prod) {
+                    refC.current.value = calc[operand](
+                        parseFloat(A),
+                        calc.getEntity(B)
+                    )?.toString() || '';
+                }
+                else if (operand === EOperand.pow) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A),
+                        parseFloat(B),
+                    )?.toString() || '';
+                }
+                else if (operand === EOperand.one) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A)
+                    )?.toString() || '';
+                }
+                else if (operand === EOperand.zero) {
+                    refC.current.value = calc[operand](
+                        calc.getEntity(A)
+                    )?.toString() || '';
+                }
+            }
         }
-    };
+    }
 }
