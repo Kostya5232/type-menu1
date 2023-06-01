@@ -1,15 +1,27 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
+<<<<<<< HEAD
 interface TSphereOptions extends IidenticalParam {
     r: number;
     count: number;
+=======
+export interface TSphereOptions extends IidenticalParam {
+    r: number;
+    count: number
+
+>>>>>>> 1a1d282793f612159cd2b3785868173edf474874
 }
 
 class Sphere extends Figure {
     constructor(options: TSphereOptions) {
+<<<<<<< HEAD
         super();
         const { r = 10, count = 20, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
+=======
+        super()
+        const { r = 10, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
+>>>>>>> 1a1d282793f612159cd2b3785868173edf474874
         const points = [];
         const edges = [];
         const polygons = [];
@@ -35,8 +47,10 @@ class Sphere extends Figure {
         }
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
+                const color = getRandomColor();
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
             } else if (i + count < points.length && (i + 1) % count === 0) {
+                const color = getRandomColor();
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
@@ -44,6 +58,15 @@ class Sphere extends Figure {
         this.edges = edges;
         this.polygons = polygons;
     }
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 export default Sphere;
