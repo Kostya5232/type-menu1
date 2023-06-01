@@ -1,6 +1,19 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, ChangeEvent } from "react";
 import useGetFigure from "./useGetFigure";
-import { ConeParams, CubeParams, CylinderParams, EllipsoidParams, EllipticalParabaloidParams, HyperbolicParaboloidParams, HyperbolicCylinderParams, OneWayHyperboloidParams, ParabalidCylinderParams, SphereParams, TorParams, TwoWayHyperboloidParams } from './figures';
+import {
+    ConeParams,
+    CubeParams,
+    CylinderParams,
+    EllipsoidParams,
+    EllipticalParabaloidParams,
+    HyperbolicParaboloidParams,
+    HyperbolicCylinderParams,
+    OneWayHyperboloidParams,
+    ParabalidCylinderParams,
+    SphereParams,
+    TorParams,
+    TwoWayHyperboloidParams,
+} from "./figures";
 import { TScene } from "../Graph3D";
 
 export interface IFigureParamsProps {
@@ -9,12 +22,12 @@ export interface IFigureParamsProps {
 
 const FigureParams: React.FC<IFigureParamsProps> = (props: IFigureParamsProps) => {
     const { setScene } = props;
-    const [figureName, setFigureName] = useState(null);
+    const [figureName, setFigureName] = useState<string | null>(null);
 
     const getFigure = useGetFigure();
 
     const selectFigureHandler = useCallback(
-        (event) => {
+        (event: ChangeEvent<HTMLSelectElement>) => {
             const scene = [getFigure(event.target.value)];
             setScene(scene);
             setFigureName(event.target.value);
@@ -94,6 +107,6 @@ const FigureParams: React.FC<IFigureParamsProps> = (props: IFigureParamsProps) =
             )}
         </div>
     );
-}
+};
 
 export default FigureParams;

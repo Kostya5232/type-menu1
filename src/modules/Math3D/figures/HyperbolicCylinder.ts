@@ -1,8 +1,9 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
-interface THyperbolicCylinderOptions extends IidenticalParam {
+export interface THyperbolicCylinderOptions extends IidenticalParam {
     a:number;
     b:number;
+    count:number
 }
 
 class HyperbolicCylinder extends Figure {

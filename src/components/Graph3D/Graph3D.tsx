@@ -166,6 +166,6 @@ const Graph3D: React.FC = () => {
             <FigureParams setScene={setScene} />
         </div>
     );
-}
+};
 
 export default Graph3D;

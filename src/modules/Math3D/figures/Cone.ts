@@ -1,7 +1,8 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
-interface TConeOptions extends IidenticalParam {
+export interface TConeOptions extends IidenticalParam {
     r:number;
+    count:number;
 }
 
 class Cone extends Figure {

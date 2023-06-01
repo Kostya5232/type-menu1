@@ -1,9 +1,10 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
-interface TEllipsoidOptions extends IidenticalParam {
+export interface TEllipsoidOptions extends IidenticalParam {
     a:number;
     b:number;
     c:number;
+    count:number;
 }
 
 class Ellipsoid extends Figure {

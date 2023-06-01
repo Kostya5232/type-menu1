@@ -1,9 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
-interface TOneWayHyperboloidOptions extends IidenticalParam {
+export interface TOneWayHyperboloidOptions extends IidenticalParam {
     a:number;
     b:number;
     c:number;
+    count:number
+
 }
 class OneWayHyperboloid extends Figure {
     constructor(options:TOneWayHyperboloidOptions) {

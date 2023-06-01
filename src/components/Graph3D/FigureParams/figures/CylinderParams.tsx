@@ -1,61 +1,61 @@
 import { useRef } from "react";
 import { IFigureParamsProps } from "../FigureParams";
 import { Figure } from "../../../../modules/Math3D";
+import { TCylinderOptions } from "../../../../modules/Math3D/figures/Cylinder";
 
 interface ICylinderParamsProps extends IFigureParamsProps {
-    getFigure: (a:string, b:IFigureParamsProps) => Figure;
+    getFigure: (a: string, b: TCylinderOptions) => Figure;
     figureName: string;
 }
 
 const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsProps) => {
     const { getFigure, figureName, setScene } = props;
-    const ref1 = useRef<HTMLInputElement>(null);
-    const ref2 = useRef<HTMLInputElement>(null);
-    const ref3 = useRef<HTMLInputElement>(null);
-    const ref4 = useRef<HTMLInputElement>(null);
-    const ref5 = useRef<HTMLInputElement>(null);
-    const ref6 = useRef<HTMLInputElement>(null);
-    const ref7 = useRef<HTMLInputElement>(null);
+    const refR = useRef<HTMLInputElement>(null);
+    const refH = useRef<HTMLInputElement>(null);
+    const refCount = useRef<HTMLInputElement>(null);
+    const refColor = useRef<HTMLInputElement>(null);
+    const refX = useRef<HTMLInputElement>(null);
+    const refY = useRef<HTMLInputElement>(null);
+    const refZ = useRef<HTMLInputElement>(null);
 
     const onChange = () => {
-        const r =Number( ref5.current?.value);
-        const h = Number(ref6.current?.value );
-        const count = Number(ref7.current?.value);
-        const color = ref1.current?.value;
-        const x = Number(ref2.current?.value);
-        const y = Number(ref3.current?.value);
-        const z = Number(ref4.current?.value);
-
+        const r = Number(refR.current?.value);
+        const h = Number(refH.current?.value);
+        const count = Number(refCount.current?.value);
+        const color = refColor.current?.value;
+        const x = Number(refX.current?.value);
+        const y = Number(refY.current?.value);
+        const z = Number(refZ.current?.value);
 
         if (color) {
-            setScene([getFigure(figureName, { r, h, count, color,x, y, z })]);
+            setScene([getFigure(figureName, { r, h, count, color, x, y, z })]);
         }
     };
 
     return (
         <div>
             <span>Радиус:</span>
-            <input ref={ref5} onChange={onChange} defaultValue={10} />
+            <input ref={refR} onChange={onChange} defaultValue={10} />
             <br></br>
             <span>Высота:</span>
-            <input ref={ref6} onChange={onChange} defaultValue={10} />
+            <input ref={refH} onChange={onChange} defaultValue={10} />
             <br></br>
             <span>Плотность точек: </span>
-            <input ref={ref7} onChange={onChange} defaultValue={20} />
+            <input ref={refCount} onChange={onChange} defaultValue={20} />
             <br></br>
             <span>Выбор цвета: </span>
-            <input ref={ref1} type="color" onChange={onChange} />
+            <input ref={refColor} type="color" onChange={onChange} />
             <br></br>
             <span>Координата x: </span>
-            <input ref={ref2} onChange={onChange} />
+            <input ref={refX} onChange={onChange} />
             <br></br>
             <span>Координата y: </span>
-            <input ref={ref3} onChange={onChange} />
+            <input ref={refY} onChange={onChange} />
             <br></br>
             <span>Координата z: </span>
-            <input ref={ref4} onChange={onChange} />
+            <input ref={refZ} onChange={onChange} />
         </div>
     );
-}
+};
 
 export default CylinderParams;

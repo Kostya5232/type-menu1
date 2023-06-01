@@ -1,9 +1,10 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-interface TParabalidCylinderOptions extends IidenticalParam {
+export interface TParabalidCylinderOptions extends IidenticalParam {
     a:number;
     b:number;
+    count:number
 }
 
 class ParabalidCylinder extends Figure {

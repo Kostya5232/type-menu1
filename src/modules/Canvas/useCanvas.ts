@@ -1,8 +1,8 @@
 import Canvas, { TCanvasOptions } from "./Canvas";
 
 declare global {
-    interface Window { 
-        requestAnimFrame: Function; 
+    interface Window {
+        requestAnimFrame: Function;
         webkitRequestAnimationFrame: Function;
         mozRequestAnimationFrame: Function;
         oRequestAnimationFrame: Function;
@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-export default function useCanvas(render: (FPS: number) => void ) {
+export default function useCanvas(render: (FPS: number) => void) {
     window.requestAnimFrame = (function () {
         return (
             window.requestAnimationFrame ||

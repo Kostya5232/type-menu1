@@ -1,57 +1,59 @@
 import { useRef } from "react";
-export default function HyperbolicParaboloidParams({ getFigure, figureName, setScene }) {
-    const ref1 = useRef(null);
-    const ref2 = useRef(null);
-    const ref3 = useRef(null);
-    const ref4 = useRef(null);
-    const ref5 = useRef(null);
-    const ref6 = useRef(null);
-    const ref7 = useRef(null);
-    const refAnim = useRef(null);
+import { Figure } from "../../../../modules/Math3D";
+import { IFigureParamsProps } from "../FigureParams";
+import { THyperbolicParaboloidOptions } from "../../../../modules/Math3D/figures/HyperbolicParaboloid";
 
+interface IHyperbolicParaboloidParamsProps extends IFigureParamsProps {
+    getFigure: (a: string, b: THyperbolicParaboloidOptions) => Figure;
+    figureName: string;
+}
+
+const HyperbolicParaboloidParams: React.FC<IHyperbolicParaboloidParamsProps> = ({ getFigure, figureName, setScene }) => {
+    const refColor = useRef<HTMLInputElement>(null);
+    const refX = useRef<HTMLInputElement>(null);
+    const refY = useRef<HTMLInputElement>(null);
+    const refZ = useRef<HTMLInputElement>(null);
+    const refP = useRef<HTMLInputElement>(null);
+    const refQ = useRef<HTMLInputElement>(null);
+    const refCount = useRef<HTMLInputElement>(null);
 
     const onChange = () => {
-        const color = ref1.current.value;
-        const x = ref2.current.value - 0;
-        const y = ref3.current.value - 0;
-        const z = ref4.current.value - 0;
-
-        const p = ref5.current.value - 0;
-        const q = ref6.current.value - 0;
-        const count = ref7.current.value - 0;
-        const animations = refAnim.current.value;
-
+        const p = Number(refP.current?.value);
+        const q = Number(refQ.current?.value);
+        const count = Number(refCount.current?.value);
+        const color = refColor.current?.value;
+        const x = Number(refX.current?.value);
+        const y = Number(refY.current?.value);
+        const z = Number(refZ.current?.value);
 
         if (color) {
-            setScene([getFigure(figureName, { p, q, count, color, animations, x, y, z })]);
+            setScene([getFigure(figureName, { p, q, count, color, x, y, z })]);
         }
     };
 
     return (
         <div>
             <span>Коэффициент p: </span>
-            <input ref={ref5} onChange={onChange} defaultValue={1} />
+            <input ref={refP} onChange={onChange} defaultValue={1} />
             <br></br>
             <span>Коэффициент q: </span>
-            <input ref={ref6} onChange={onChange} defaultValue={1} />
+            <input ref={refQ} onChange={onChange} defaultValue={1} />
             <br></br>
             <span>Плотность точек: </span>
-            <input ref={ref7} onChange={onChange} defaultValue={20} />
-            <br></br>
-            <span>Анимации</span>
-            <input ref={refAnim} onChange={onChange}/>
+            <input ref={refCount} onChange={onChange} defaultValue={20} />
             <br></br>
             <span>Выбор цвета: </span>
-            <input ref={ref1} type="color" onChange={onChange} />
+            <input ref={refColor} type="color" onChange={onChange} />
             <br></br>
             <span>Координата x: </span>
-            <input ref={ref2} onChange={onChange} />
+            <input ref={refX} onChange={onChange} />
             <br></br>
             <span>Координата y: </span>
-            <input ref={ref3} onChange={onChange} />
+            <input ref={refY} onChange={onChange} />
             <br></br>
             <span>Координата z: </span>
-            <input ref={ref4} onChange={onChange} />
+            <input ref={refZ} onChange={onChange} />
         </div>
     );
-}
+};
+export default HyperbolicParaboloidParams;

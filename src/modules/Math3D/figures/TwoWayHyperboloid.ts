@@ -1,10 +1,12 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-interface TTwoWayHyperboloidOptions extends IidenticalParam {
+export interface TTwoWayHyperboloidOptions extends IidenticalParam {
     a:number;
     b:number;
     c:number;
+    count:number
+
 }
 
 class TwoWayHyperboloid extends Figure {

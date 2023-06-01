@@ -1,9 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-interface TTorOptions extends IidenticalParam {
+export interface TTorOptions extends IidenticalParam {
     R:number;
     r:number;
+    count:number
+
 }
 
 class Tor extends Figure {

@@ -1,9 +1,11 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
-interface THyperbolicParaboloidOptions extends IidenticalParam {
+export interface THyperbolicParaboloidOptions extends IidenticalParam {
     p:number;
     q:number;
+    count:number
+
 }
 class HyperbolicParaboloid extends Figure {
     constructor(options: THyperbolicParaboloidOptions) {
