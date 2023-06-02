@@ -4,7 +4,6 @@ import AnyType from "../entitites/AnyType";
 import ComplexCalculator from "./ComplexCalculator";
 
 export default class MatrixCalculator implements ICalculator<Matrix> {
-
     calc: ICalculator<AnyType>;
 
     constructor(calc: ICalculator<AnyType> = new ComplexCalculator()) {
@@ -12,21 +11,11 @@ export default class MatrixCalculator implements ICalculator<Matrix> {
     }
 
     add(a: Matrix, b: Matrix): Matrix {
-        return new Matrix(
-            a.values.map((arr, i) =>
-                arr.map((elem, j) => this.calc.add(elem, b.values[i][j])
-                )
-            )
-        );
+        return new Matrix(a.values.map((arr, i) => arr.map((elem, j) => this.calc.add(elem, b.values[i][j]))));
     }
 
     sub(a: Matrix, b: Matrix): Matrix {
-        return new Matrix(
-            a.values.map((arr, i) =>
-                arr.map((elem, j) => this.calc.sub(elem, b.values[i][j])
-                )
-            )
-        );
+        return new Matrix(a.values.map((arr, i) => arr.map((elem, j) => this.calc.sub(elem, b.values[i][j]))));
     }
 
     mult(a: Matrix, b: Matrix): Matrix {

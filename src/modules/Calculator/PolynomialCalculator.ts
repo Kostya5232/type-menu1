@@ -5,17 +5,17 @@ export enum EPolyOperand {
     add = "add",
     sub = "sub",
     mult = "mult",
+    point = "point",
 }
 
 export default class PolynomialCalculator {
-
-    members: { value: number, power: number }[]
+    members: { value: number; power: number }[];
 
     constructor() {
         this.members = [];
     }
 
-    polynomial(members: { value: number, power: number }[]) {
+    polynomial(members: { value: number; power: number }[]) {
         return new Polynomial(members);
     }
 
@@ -33,23 +33,23 @@ export default class PolynomialCalculator {
         return new Polynomial();
     }
 
-    getMember(str: string) {
+    getMember(str: string): Member {
         if (str) {
             const arr = str.split("x");
-            if (arr.length === 1) return new Member(arr[0]);
+            if (arr.length === 1) return new Member(Number(arr[0]));
             arr[0] = arr[0].replaceAll("*", "");
             arr[1] = arr[1].replaceAll("^", "");
-            if (arr[0] === "-") arr[0] = -1;
-            if (arr[0] === "") arr[0] = 1;
-            if (arr[1] === "") arr[1] = 1;
-            return new Member(arr[0], arr[1]);
+            if (arr[0] === "-") arr[0] = "-1";
+            if (arr[0] === "") arr[0] = "1";
+            if (arr[1] === "") arr[1] = "1";
+            return new Member(Number(arr[0]), Number(arr[1]));
         }
         return new Member();
     }
 
-    [EPolyOperand.add](a, b) {
+    [EPolyOperand.add](a: Polynomial, b: Polynomial): Polynomial {
         const calc = new UniversalCalculator();
-        const members = [];
+        const members: Member[] = [];
         a.poly.forEach((elemA) => {
             const member = b.poly.find((elemB) => elemB.power === elemA.power);
             if (member) {
@@ -66,9 +66,9 @@ export default class PolynomialCalculator {
         return this.polynomial(members);
     }
 
-    [EPolyOperand.sub](a, b) {
+    [EPolyOperand.sub](a: Polynomial, b: Polynomial) {
         const calc = new UniversalCalculator();
-        const members = [];
+        const members: Member[] = [];
         a.poly.forEach((elemA) => {
             const member = b.poly.find((elemB) => elemB.power === elemA.power);
             if (member) {
@@ -86,11 +86,11 @@ export default class PolynomialCalculator {
         return this.polynomial(members);
     }
 
-    [EPolyOperand.mult](a, b) {
+    [EPolyOperand.mult](a: Polynomial, b: Polynomial): Polynomial {
         const calc = new UniversalCalculator();
-        let polynomial = this.polynomial();
+        let polynomial = this.polynomial([]);
         a.poly.forEach((elemA) => {
-            const members = [];
+            const members: Member[] = [];
             b.poly.forEach((elemB) => {
                 members.push(new Member(calc.mult(new Complex(elemA.value), new Complex(elemB.value)), elemA.power + elemB.power));
             });
