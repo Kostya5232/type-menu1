@@ -4,8 +4,7 @@ import FuncMath from "./FuncMath";
 import UIComponent from "./UI/UIComponent";
 import "./Graph2D.css";
 type Ifuncs = {
-    f: string;
-    num: number;
+    f: Function;
     width: number;
     color: string;
     sLine: number;
@@ -25,7 +24,7 @@ const Graph2D: React.FC = () => {
     };
 
     let derevativeX = 0;
-    let funcs: Ifuncs[] = [];
+    let funcs: Ifuncs[] | null[] = [];
     let canMove = false;
 
     useEffect(() => {
@@ -35,8 +34,8 @@ const Graph2D: React.FC = () => {
             width: 600,
             height: 600,
             callbacks: {
-                wheel: (event) => wheel(event),
-                mouseMove: (event) => mouseMove(event),
+                wheel: (event: WheelEvent) => wheel(event),
+                mouseMove: (event: MouseEvent) => mouseMove(event),
                 mouseUp: () => mouseUp(),
                 mouseDown: () => mouseDown(),
                 mouseLeave: () => mouseLeave(),
@@ -47,7 +46,7 @@ const Graph2D: React.FC = () => {
             parent: "ui",
             callbacks: {
                 delFunction: (num: number) => delFunction(num),
-                addFunction: (f, num: number, width: number, color: string, sLine: number, eLine: number, printDerevative: number) =>
+                addFunction: (f: Function, num: number, width: number, color: string, sLine: number, eLine: number, printDerevative: number) =>
                     addFunction(f, num, width, color, sLine, eLine, printDerevative),
             },
         });
@@ -56,19 +55,19 @@ const Graph2D: React.FC = () => {
         renderCanvas();
     });
 
-    function addFunction(f: string, num: number, width: number = 9, color = "red", sLine: number, eLine: number, printDerevative: number) {
+    function addFunction(f: Function, num: number, width: number = 9, color = "red", sLine: number, eLine: number, printDerevative: number): void {
         funcs[num] = { f, color, width, sLine, eLine, printDerevative };
         renderCanvas();
     }
 
-    function delFunction(num: number) {
+    function delFunction(num: number): void {
         funcs[num] = null;
         renderCanvas();
     }
 
-    function mouseMove(event) {
+    function mouseMove(event: MouseEvent): void {
         if (canMove) {
-            WIN.LEFT -= canvas ? canvas.sx(event.movementX) : 0;
+            WIN.LEFT -= canvas ? canvas.sx(event?.movementX) : 0;
             WIN.BOTTOM -= canvas ? canvas.sy(event.movementY) : 0;
         }
         derevativeX = WIN.LEFT + (canvas ? canvas.sx(event.offsetX) : 0);
@@ -83,7 +82,7 @@ const Graph2D: React.FC = () => {
     function mouseDown() {
         canMove = true;
     }
-    function wheel(event) {
+    function wheel(event: WheelEvent) {
         event.preventDefault();
         let delta = event.deltaY > 0 ? -0.3 : +0.3;
         if (WIN.BOTTOM + delta < -6) {
@@ -95,16 +94,16 @@ const Graph2D: React.FC = () => {
         renderCanvas();
     }
 
-    const printFunction = (f, color: string, width: number) => {
+    const printFunction = (f: Function, color: string, width: number) => {
         let x = WIN.LEFT;
         let dx = WIN.WIDTH / 1000;
         while (x < WIN.LEFT + WIN.WIDTH) {
-            canvas ? canvas.line(x, f(x), x + dx, f(x + dx), color, width) : "";
+            canvas?.line(x, f(x), x + dx, f(x + dx), color, width);
             x += dx;
         }
     };
 
-    const printIntegral = (f, a: number, b: number, n: number = 100) => {
+    const printIntegral = (f: Function, a: number, b: number, n: number = 100) => {
         const dx = (b - a) / n;
         let x = a;
         const points = [];
@@ -114,7 +113,7 @@ const Graph2D: React.FC = () => {
             x += dx;
         }
         points.push({ x: b, y: 0 });
-        canvas ? canvas.polygon(points, "rgba(154, 205, 50, 0.7)") : "";
+        canvas?.polygon(points, "rgba(154, 205, 50, 0.7)");
     };
 
     const printXY = () => {
@@ -157,20 +156,20 @@ const Graph2D: React.FC = () => {
             const shiftX = WIN.WIDTH / 200;
             for (let i = Math.round(WIN.LEFT); i < WIN.LEFT + WIN.WIDTH; i++) {
                 canvas.line(i, len, i, -len, "black", 2.5);
-                canvas.text(i, i + shiftX, shiftY);
+                canvas.text(`${i}`, i + shiftX, shiftY);
                 // y на оси
                 canvas.text("y", 0 + 0.4, WIN.BOTTOM + WIN.HEIGHT - 0.5, "black");
             }
             for (let i = Math.round(WIN.BOTTOM); i < WIN.BOTTOM + WIN.HEIGHT; i++) {
                 canvas.line(len, i, -len, i, "black", 2.5);
-                canvas.text(i, shiftX, i + shiftY);
+                canvas.text(`${i}`, shiftX, i + shiftY);
                 // x на оси
                 canvas.text("x", WIN.LEFT + WIN.WIDTH - 0.4, 0 + 0.3, "black");
             }
         }
     };
 
-    const printRect = (event) => {
+    const printRect = (event: MouseEvent): void => {
         if (canvas) {
             const x = Math.floor(canvas.x(event.offsetX));
             const y = Math.ceil(canvas.y(event.offsetY));
@@ -186,11 +185,11 @@ const Graph2D: React.FC = () => {
                 { x: 1, y: -1, shiftX: 0, shiftY: -shiftY },
             ];
             nums.forEach((coord) => {
-                canvas.text(`(${coord.x + x}; ${coord.y + y})`, x + coord.x + coord.shiftX, y + coord.y + coord.shiftY, "black");
+                canvas?.text(`(${coord.x + x}; ${coord.y + y})`, x + coord.x + coord.shiftX, y + coord.y + coord.shiftY, "black");
             });
         }
     };
-    function renderCanvas(event = null) {
+    function renderCanvas(event: MouseEvent | null = null) {
         if (canvas) {
             canvas.clear();
         }
@@ -209,7 +208,7 @@ const Graph2D: React.FC = () => {
         //Derivative
         funcs.forEach((f) => {
             if (f && f.printDerevative) {
-                funcMath.printTangent(f.f, derevativeX);
+                funcMath?.printTangent(f.f, derevativeX);
             }
         });
 
