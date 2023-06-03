@@ -1,17 +1,26 @@
-import Complex from "./Complex";
+import Member from "./Member";
 import UniversalCalculator from "../UniversalCalculator";
 
 export default class Polynomial {
-    poly: { value: number; power: number }[];
+    poly: Member[];
 
-    constructor(poly: { value: number; power: number }[] = []) {
+    constructor(poly: Member[] = []) {
         this.poly = poly.filter((elem) => elem.value);
         this.poly.sort((a, b) => b.power - a.power);
     }
 
     getValue(x: number) {
         const calc = new UniversalCalculator();
-        return this.poly.reduce((s, elem) => calc.add(s, calc.prod(new Complex(elem.value), calc.pow(x, new Complex(elem.power)))), calc.zero(x));
+        return this.poly.reduce(
+            (s, elem) => calc.add(
+                s,
+                calc.prod(
+                    elem.value,
+                    calc.pow(x, elem.power)
+                )
+            ),
+            calc.zero(x)
+        );
     }
 
     toString(): string {

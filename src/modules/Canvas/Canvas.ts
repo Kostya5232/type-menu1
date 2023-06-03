@@ -53,11 +53,11 @@ export default class Canvas {
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    line(x1: number, y1: number, x2: number, y2: number, color = "#191970", width = 2, isDash = 1): void {
+    line(x1: number, y1: number, x2: number, y2: number, color = "#191970", width = 2, isDash = 0): void {
         this.context.beginPath();
         this.context.strokeStyle = color;
         this.context.lineWidth = width;
-        this.context.setLineDash([isDash ? isDash : 1]);
+        this.context.setLineDash([isDash ? isDash : 0]);
         this.context.moveTo(this.xs(x1), this.ys(y1));
         this.context.lineTo(this.xs(x2), this.ys(y2));
         this.context.stroke();

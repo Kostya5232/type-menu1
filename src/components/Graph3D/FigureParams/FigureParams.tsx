@@ -15,6 +15,7 @@ import {
     TwoWayHyperboloidParams,
 } from "./figures";
 import { TScene } from "../Graph3D";
+import { TCubeOptions } from "../../../modules/Math3D/figures/Cube";
 
 export interface IFigureParamsProps {
     setScene: (scene: TScene) => void;
@@ -28,7 +29,10 @@ const FigureParams: React.FC<IFigureParamsProps> = (props: IFigureParamsProps) =
 
     const selectFigureHandler = useCallback(
         (event: ChangeEvent<HTMLSelectElement>) => {
-            const scene = [getFigure(event.target.value)];
+            const scene = [getFigure<TCubeOptions>(
+                event.target.value, 
+                { x: 0, y: 0, z: 0, color: '#ff0000' }
+            )];
             setScene(scene);
             setFigureName(event.target.value);
         },

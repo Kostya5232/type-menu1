@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { IFigureParamsProps } from "../FigureParams";
 import { Figure } from "../../../../modules/Math3D";
-import { TCubeOptions } from "../../../../modules/Math3D/figures/Cube";
+
 interface ICubeParamsProps extends IFigureParamsProps {
-    getFigure: (a: string, b: TCubeOptions) => Figure;
+    getFigure: <TCubeOptions>(a: string, b: TCubeOptions) => Figure;
     figureName: string;
 }
 

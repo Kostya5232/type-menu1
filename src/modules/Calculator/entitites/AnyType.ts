@@ -1,5 +1,5 @@
-import { Complex, Vector, Matrix } from "./";
+import { Complex, Vector, Matrix, Polynomial } from "./";
 
-type AnyType = Complex | Vector | Matrix | number;
+type AnyType = Polynomial | Complex | Vector | Matrix | number;
 
 export default AnyType;

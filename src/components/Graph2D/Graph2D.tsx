@@ -3,7 +3,7 @@ import Canvas from "../../modules/Canvas/Canvas";
 import FuncMath from "./FuncMath";
 import UIComponent from "./UI/UIComponent";
 import "./Graph2D.css";
-type Ifuncs = {
+export type IFuncs = {
     f: Function;
     width: number;
     color: string;
@@ -24,7 +24,7 @@ const Graph2D: React.FC = () => {
     };
 
     let derevativeX = 0;
-    let funcs: Ifuncs[] | null[] = [];
+    const funcs: (IFuncs | null)[] = [];
     let canMove = false;
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const Graph2D: React.FC = () => {
                 mouseLeave: () => mouseLeave(),
             },
         });
-        ui = new UIComponent({
+        /*ui = new UIComponent({
             id: "ui",
             parent: "ui",
             callbacks: {
@@ -49,7 +49,7 @@ const Graph2D: React.FC = () => {
                 addFunction: (f: Function, num: number, width: number, color: string, sLine: number, eLine: number, printDerevative: number) =>
                     addFunction(f, num, width, color, sLine, eLine, printDerevative),
             },
-        });
+        });*/
         funcMath = new FuncMath({ WIN: WIN, canvas: canvas });
 
         renderCanvas();

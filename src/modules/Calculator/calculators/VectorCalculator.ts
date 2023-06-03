@@ -1,13 +1,12 @@
 import ICalculator from '../ICalculatror';
-import { Complex, Vector } from '../entitites';
+import { Vector } from '../entitites';
 import AnyType from '../entitites/AnyType';
-import ComplexCalculator from './ComplexCalculator';
 
 export default class VectorCalculator implements ICalculator<Vector> {
 
   calc: ICalculator<AnyType>
 
-  constructor(calc: ICalculator<AnyType> = new ComplexCalculator()) {
+  constructor(calc: ICalculator<AnyType>) {
     this.calc = calc;
   }
 
@@ -54,18 +53,18 @@ export default class VectorCalculator implements ICalculator<Vector> {
     return c;
   }
 
-  one(length: number): Vector {
-    const values: Vector[] = [];
+  one(length = 0): Vector {
+    const values: AnyType[] = [];
     for (let i = 0; i < length; i++) {
-      values.push(this.calc.one());
+      values.push(this.calc.one(length));
     }
     return new Vector(values);
   }
 
-  zero(length: number): Vector {
-    const values: Vector[] = [];
+  zero(length = 0): Vector {
+    const values: AnyType[] = [];
     for (let i = 0; i < length; i++) {
-      values.push(this.calc.zero());
+      values.push(this.calc.zero(length));
     }
     return new Vector(values);
   }

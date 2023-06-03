@@ -1,29 +1,35 @@
 import ICalculator from "../ICalculatror";
-import { Matrix, Complex, Vector, Polynomial } from "../entitites";
+import { Matrix } from "../entitites";
 import AnyType from "../entitites/AnyType";
-import ComplexCalculator from "./ComplexCalculator";
 
 export default class MatrixCalculator implements ICalculator<Matrix> {
+
     calc: ICalculator<AnyType>;
 
-    constructor(calc: ICalculator<AnyType> = new ComplexCalculator()) {
+    constructor(calc: ICalculator<AnyType>) {
         this.calc = calc;
     }
 
+    div() {
+        return null;
+    }
+
     add(a: Matrix, b: Matrix): Matrix {
-        return new Matrix(a.values.map((arr, i) => arr.map((elem, j) => this.calc.add(elem, b.values[i][j]))));
+        return new Matrix(a.values.map((arr, i) =>
+            arr.map((elem, j) => this.calc.add(elem, b.values[i][j]))));
     }
 
     sub(a: Matrix, b: Matrix): Matrix {
-        return new Matrix(a.values.map((arr, i) => arr.map((elem, j) => this.calc.sub(elem, b.values[i][j]))));
+        return new Matrix(a.values.map((arr, i) =>
+            arr.map((elem, j) => this.calc.sub(elem, b.values[i][j]))));
     }
 
     mult(a: Matrix, b: Matrix): Matrix {
-        let values: Complex[][] = [];
+        const values: AnyType[][] = [];
         for (let i = 0; i < a.values.length; i++) {
             values.push([]);
             for (let j = 0; j < a.values[i].length; j++) {
-                let s: Complex = new Complex(0, 0);
+                let s: AnyType = this.zero(a.values.length);
                 for (let k = 0; k < a.values[i].length; k++) {
                     s = this.calc.add(s, this.calc.mult(a.values[i][k], b.values[k][j]));
                 }
@@ -46,23 +52,23 @@ export default class MatrixCalculator implements ICalculator<Matrix> {
         return c;
     }
 
-    one(length: number): Matrix {
-        const values: Complex[][] = [];
+    one(length = 0): Matrix {
+        const values: AnyType[][] = [];
         for (let i = 0; i < length; i++) {
             values.push([]);
             for (let j = 0; j < length; j++) {
-                values[i][j] = i === j ? this.calc.one() : this.calc.zero();
+                values[i][j] = i === j ? this.calc.one(length) : this.calc.zero(length);
             }
         }
         return new Matrix(values);
     }
 
-    zero(length: number): Matrix {
-        const values: Complex[][] = [];
+    zero(length = 0): Matrix {
+        const values: AnyType[][] = [];
         for (let i = 0; i < length; i++) {
             values.push([]);
             for (let j = 0; j < length; j++) {
-                values[i][j] = this.calc.zero();
+                values[i][j] = this.calc.zero(length);
             }
         }
         return new Matrix(values);

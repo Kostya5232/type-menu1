@@ -2,10 +2,9 @@ export default class Member {
     value: number;
     power: number;
 
-    constructor(value: number = 0, power: number = 0) {
-        this.value = value - 0;
-        this.power = power - 0;
-        console.log(this.value, this.power);
+    constructor(value = 0, power = 0) {
+        this.value = value;
+        this.power = power;
     }
 
     toString(): string {

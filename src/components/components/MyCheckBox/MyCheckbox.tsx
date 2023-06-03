@@ -3,11 +3,15 @@ import React from "react";
 interface MyCheckboxProps{
   text: string;
   checked: boolean;
-  onClick
+  onClick: (a: boolean) => void;
 }
 
 const MyCheckbox:React.FC<MyCheckboxProps> = ({ text, checked, onClick }) => {
   const id = `checkbox-${Math.random()}`;
+
+  const handlerClick = (event: React.MouseEvent<HTMLInputElement>) => {
+    onClick((event.target as HTMLInputElement).checked);
+  }
   
   return (
     <>
@@ -15,7 +19,7 @@ const MyCheckbox:React.FC<MyCheckboxProps> = ({ text, checked, onClick }) => {
         id={id}
         defaultChecked={checked}
         type="checkbox"
-        onClick={(event) => onClick(event.target.checked)}
+        onClick={handlerClick}
       />
       <label htmlFor={id}>{text}</label>
     </>

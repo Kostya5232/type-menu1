@@ -14,12 +14,13 @@ import {
     TwoWayHyperboloid,
 } from "../../../modules/Math3D";
 
+import { TCubeOptions } from "../../../modules/Math3D/figures/Cube";
+
 const useGetFigure = () => {
-    //shit
-    return (name: string, params = {}) => {
+    return <T>(name: string, params: T) => {
         switch (name) {
             case "Cube":
-                return new Cube(params);
+                return new Cube(params as TCubeOptions);
             case "Sphere":
                 return new Sphere(params);
             case "Cone":

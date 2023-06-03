@@ -1,6 +1,6 @@
- export interface IidenticalParam {
+export interface IidenticalParam {
     color: string;
-    x:number;
-    y:number;
-    z:number;
+    x: number;
+    y: number;
+    z: number;
 }

@@ -1,7 +1,46 @@
-import React from "react";
+import { useState } from "react";
+import { IFuncs } from "../Graph2D";
+import FunctionProps from "./FunctionProps";
 
-class UIComponent extends React.Component {
-    //shit
+interface IUIComponent {
+    funcs: (IFuncs | null)[]
+    incFunction: () => void;
+    delFunction: (num: number) => void;
+    addFunction: (
+        func: (x: number) => number,
+        num: number,
+        width: number,
+        color: string,
+        startLine: number,
+        endLine: number,
+        flag: boolean
+    ) => void;
+}
+
+const UIComponent: React.FC<IUIComponent> = (props: IUIComponent) => {
+    const { incFunction, addFunction, delFunction, funcs } = props;
+    const [funcsCount, setFuncsCount] = useState<number>(funcs.length);
+
+    return (
+        <div>
+            <button 
+                onClick={incFunction}
+            >
+                Add function
+            </button>
+            <div>
+                {funcs.map((func, index) => (<FunctionProps key={index} func={func} />))}
+            </div>
+        </div>
+    );
+};
+
+export default UIComponent;
+
+//import React from "react";
+
+//shit
+/*class UIComponent extends React.Component {
     num: number;
     props: any;
     callbacks?: any;
@@ -117,7 +156,6 @@ class UIComponent extends React.Component {
         try {
             let f;
             let graph = document.getElementById(`inp${elem.dataset.num}`) as HTMLInputElement;
-            console.log(graph);
             eval(`f = function (x) {return ${graph.value};}`);
 
             let check = document.getElementById(`checkbox${elem.dataset.num}`) as HTMLInputElement;
@@ -145,4 +183,4 @@ class UIComponent extends React.Component {
     }
 }
 
-export default UIComponent;
+export default UIComponent;*/
