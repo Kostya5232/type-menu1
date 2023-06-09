@@ -1,15 +1,16 @@
-import Cone from './Cone';
-import Cube from './Cube';
-import Cylinder from './Cylinder';
-import Ellipsoid from './Ellipsoid';
-import EllipticalParabaloid from './EllipticalParabaloid';
-import HyperbolicCylinder from './HyperbolicCylinder';
-import HyperbolicParaboloid from './HyperbolicParaboloid';
-import OneWayHyperboloid from './OneWayHyperboloid';
-import ParabalidCylinder from './ParabalidCylinder';
-import Sphere from './Sphere';
-import Tor from './Tor';
-import TwoWayHyperboloid from './TwoWayHyperboloid';
+import Cube, { TCubeOptions } from './Cube';
+import Cone, { TConeOptions } from './Cone';
+import Cylinder, { TCylinderOptions } from './Cylinder';
+import Ellipsoid, { TEllipsoidOptions } from './Ellipsoid';
+import EllipticalParabaloid, { TEllipticalParabaloidOptions } from './EllipticalParabaloid';
+import HyperbolicCylinder, { THyperbolicCylinderOptions } from './HyperbolicCylinder';
+import HyperbolicParaboloid, { THyperbolicParaboloidOptions } from './HyperbolicParaboloid';
+import OneWayHyperboloid, { TOneWayHyperboloidOptions } from './OneWayHyperboloid';
+import ParabalidCylinder, { TParabalidCylinderOptions } from './ParabalidCylinder';
+import Sphere, { TSphereOptions } from './Sphere';
+import Tor, { TTorOptions } from './Tor';
+import TwoWayHyperboloid, { TTwoWayHyperboloidOptions } from './TwoWayHyperboloid';
+
 
 export {
   Cone,
@@ -25,3 +26,6 @@ export {
   Tor,
   TwoWayHyperboloid
 };
+export type {
+  TCubeOptions, TConeOptions, TCylinderOptions, TEllipsoidOptions, TEllipticalParabaloidOptions, THyperbolicCylinderOptions, THyperbolicParaboloidOptions, TOneWayHyperboloidOptions, TParabalidCylinderOptions, TSphereOptions, TTorOptions, TTwoWayHyperboloidOptions
+}

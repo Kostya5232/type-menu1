@@ -10,8 +10,10 @@ interface ICylinderParamsProps extends IFigureParamsProps {
 
 const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsProps) => {
     const { getFigure, figureName, setScene } = props;
-    const refR = useRef<HTMLInputElement>(null);
+    const refA = useRef<HTMLInputElement>(null);
+    const refB = useRef<HTMLInputElement>(null);
     const refH = useRef<HTMLInputElement>(null);
+
     const refCount = useRef<HTMLInputElement>(null);
     const refColor = useRef<HTMLInputElement>(null);
     const refX = useRef<HTMLInputElement>(null);
@@ -19,7 +21,8 @@ const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsPr
     const refZ = useRef<HTMLInputElement>(null);
 
     const onChange = () => {
-        const r = Number(refR.current?.value);
+        const a = Number(refA.current?.value);
+        const b = Number(refB.current?.value);
         const h = Number(refH.current?.value);
         const count = Number(refCount.current?.value);
         const color = refColor.current?.value;
@@ -28,15 +31,19 @@ const CylinderParams: React.FC<ICylinderParamsProps> = (props: ICylinderParamsPr
         const z = Number(refZ.current?.value);
 
         if (color) {
-            setScene([getFigure(figureName, { r, h, count, color, x, y, z })]);
+            setScene([getFigure(figureName, { a,b, h, count, color, x, y, z })]);
         }
     };
 
     return (
         <div>
-            <span>Радиус:</span>
-            <input ref={refR} onChange={onChange} defaultValue={10} />
+            <span>Коэффициент а:</span>
+            <input ref={refA} onChange={onChange} defaultValue={10} />
             <br></br>
+            <span>Коэффициент b:</span>
+            <input ref={refB} onChange={onChange} defaultValue={10} />
+            <br></br>
+
             <span>Высота:</span>
             <input ref={refH} onChange={onChange} defaultValue={10} />
             <br></br>

@@ -70,16 +70,13 @@ const FigureParams: React.FC<IFigureParamsProps> = (props: IFigureParamsProps) =
                     Двухполосый гиперболоид
                 </option>
                 <option className="figur" value="EllipticalParabaloid">
-                    Эллиптический гиперболоид
+                    Эллиптический параболоид
                 </option>
                 <option className="figur" value="ParabalidCylinder">
                     Параболический цилиндр
                 </option>
                 <option className="figur" value="HyperbolicCylinder">
                     Гипербалический цилиндр
-                </option>
-                <option className="figur" value="SolarSystem">
-                    Солнечная система
                 </option>
             </select>
             {figureName === "Cube" ? (

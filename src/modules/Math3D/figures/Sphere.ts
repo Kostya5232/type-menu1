@@ -14,7 +14,7 @@ class Sphere extends Figure {
         const edges = [];
         const polygons = [];
 
-        for (let j = 0; j <= count; j++) {
+        for (let j = 0; j < count; j++) {
             const T = (Math.PI / count) * j;
             for (let i = 0; i < count; i++) {
                 const p = ((2 * Math.PI) / count) * i;
@@ -35,26 +35,26 @@ class Sphere extends Figure {
         }
         for (let i = 0; i < points.length; i++) {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
-                const color = getRandomColor();
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
             } else if (i + count < points.length && (i + 1) % count === 0) {
-                const color = getRandomColor();
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+
+
         this.points = points;
         this.edges = edges;
         this.polygons = polygons;
     }
 }
 
-function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+// function getRandomColor() {
+//     const letters = "0123456789ABCDEF";
+//     let color = "#";
+//     for (let i = 0; i < 6; i++) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }
 
 export default Sphere;

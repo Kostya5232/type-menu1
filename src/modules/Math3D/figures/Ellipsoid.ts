@@ -1,21 +1,21 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 export interface TEllipsoidOptions extends IidenticalParam {
-    a:number;
-    b:number;
-    c:number;
-    count:number;
+    a: number;
+    b: number;
+    c: number;
+    count: number;
 }
 
 class Ellipsoid extends Figure {
-    constructor(options:TEllipsoidOptions) {
+    constructor(options: TEllipsoidOptions) {
         super()
-        const { a = 10 , b = 5 , c = 7 , count = 20 , color = 'lightgreen', x = 0, y = 0, z = 0} = options;
-        const points:Point[] = [];
-        const edges:Edge[] = [];
+        const { a = 10, b = 5, c = 7, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
+        const points: Point[] = [];
+        const edges: Edge[] = [];
         const polygons: Polygon[] = [];
         for (let i = 0; i <= count; i++) {
-            const T = ((2 * Math.PI) / count) * i;
+            const T = ((Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
                 const p = ((2 * Math.PI) / count) * j;
                 points.push(new Point(a * Math.sin(T) * Math.cos(p) + x, c * Math.cos(T) + y, b * Math.sin(T) * Math.sin(p) + z));
@@ -40,6 +40,7 @@ class Ellipsoid extends Figure {
             }
         }
 
+        console.log(polygons)
         this.points = points
         this.edges = edges
         this.polygons = polygons

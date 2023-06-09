@@ -2,15 +2,15 @@ import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
 export interface THyperbolicParaboloidOptions extends IidenticalParam {
-    p:number;
-    q:number;
-    count:number
+    p: number;
+    q: number;
+    count: number
 
 }
 class HyperbolicParaboloid extends Figure {
     constructor(options: THyperbolicParaboloidOptions) {
         super();
-        const { p = 4  , q = 4 , count = 20, color = 'lightgreen' , x = 0 , y = 0 , z = 0} = options;
+        const { p = 4, q = 4, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
         const points = [];
         const edges = [];
         const polygons = [];

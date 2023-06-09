@@ -1,18 +1,18 @@
 import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 export interface TConeOptions extends IidenticalParam {
-    r:number;
-    count:number;
+    r: number;
+    count: number;
 }
 
 class Cone extends Figure {
-    constructor(options:TConeOptions) {
+    constructor(options: TConeOptions) {
         super();
-        const {r=2, count =8, color = 'lightgreen' , x=0 ,y=0, z=0 } = options;
+        const { r = 2, count = 8, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
         const points = []
         const edges = [];
         const polygons = [];
-    
+
         for (let i = -count; i <= count; i++) {
             const T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
@@ -39,6 +39,7 @@ class Cone extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+
         this.points = points;
         this.edges = edges;
         this.polygons = polygons;

@@ -2,23 +2,23 @@ import { Figure, Point, Edge, Polygon } from "../entities";
 import { IidenticalParam } from "./IidenticalParam";
 
 export interface TParabalidCylinderOptions extends IidenticalParam {
-    a:number;
-    b:number;
-    count:number
+    a: number;
+    b: number;
+    count: number
 }
 
 class ParabalidCylinder extends Figure {
-    constructor(options:TParabalidCylinderOptions) {
+    constructor(options: TParabalidCylinderOptions) {
         super()
-        const { a = 10 , b = 10 , count = 20 , color = 'lightgreen' , x = 0 , y = 0 , z = 0 } = options;
+        const { a = 10, b = 10, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
         const points = [];
         const edges = [];
         const polygons = [];
 
-        for (let i = -count / 2; i <= count / 2; i++) {
+        for (let i = -count / 2; i < count / 2; i++) {
             const T = (Math.PI / count) * i;
             for (let j = 0; j < count; j++) {
-                const p = ((3 * Math.PI) / count) * j;
+                const p = ((2 * Math.PI) / count) * j;
                 points.push(new Point(b * Math.sinh(T) + x, a * Math.cosh(T) + y, p * 2 + z));
             }
         }

@@ -14,7 +14,7 @@ import {
     TwoWayHyperboloid,
 } from "../../../modules/Math3D";
 
-import { TCubeOptions } from "../../../modules/Math3D/figures/Cube";
+import { TCubeOptions, TConeOptions, TCylinderOptions, TEllipsoidOptions, TEllipticalParabaloidOptions, THyperbolicCylinderOptions, THyperbolicParaboloidOptions, TOneWayHyperboloidOptions, TParabalidCylinderOptions, TSphereOptions, TTorOptions, TTwoWayHyperboloidOptions } from '../../../modules/Math3D/figures'
 
 const useGetFigure = () => {
     return <T>(name: string, params: T) => {
@@ -22,27 +22,27 @@ const useGetFigure = () => {
             case "Cube":
                 return new Cube(params as TCubeOptions);
             case "Sphere":
-                return new Sphere(params);
+                return new Sphere(params as TSphereOptions);
             case "Cone":
-                return new Cone(params);
+                return new Cone(params as TConeOptions);
             case "Ellipsoid":
-                return new Ellipsoid(params);
+                return new Ellipsoid(params as TEllipsoidOptions);
             case "Tor":
-                return new Tor(params);
+                return new Tor(params as TTorOptions);
             case "HyperbolicParaboloid":
-                return new HyperbolicParaboloid(params);
+                return new HyperbolicParaboloid(params as THyperbolicParaboloidOptions);
             case "Cylinder":
-                return new Cylinder(params);
+                return new Cylinder(params as TCylinderOptions);
             case "OneWayHyperboloid":
-                return new OneWayHyperboloid(params);
+                return new OneWayHyperboloid(params as TOneWayHyperboloidOptions);
             case "TwoWayHyperboloid":
-                return new TwoWayHyperboloid(params);
+                return new TwoWayHyperboloid(params as TTwoWayHyperboloidOptions);
             case "EllipticalParabaloid":
-                return new EllipticalParabaloid(params);
+                return new EllipticalParabaloid(params as TEllipticalParabaloidOptions);
             case "ParabalidCylinder":
-                return new ParabalidCylinder(params);
+                return new ParabalidCylinder(params as TParabalidCylinderOptions);
             case "HyperbolicCylinder":
-                return new HyperbolicCylinder(params);
+                return new HyperbolicCylinder(params as THyperbolicCylinderOptions);
             default:
                 return new Figure();
         }

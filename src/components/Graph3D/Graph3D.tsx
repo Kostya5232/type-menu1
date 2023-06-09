@@ -88,6 +88,7 @@ const Graph3D: React.FC = () => {
                     polygons.push(polygon);
                 });
             });
+
             math3D.sortByArtistAlgorithm(polygons);
             polygons.forEach((polygon) => {
                 const figure = scene[polygon.figureIndex];
@@ -97,6 +98,7 @@ const Graph3D: React.FC = () => {
                     figure.points[polygon.points[2]],
                     figure.points[polygon.points[3]],
                 ];
+                
                 let { r, g, b } = polygon.color;
                 const { isShadow, dark } = math3D.calcShadow(polygon, scene, LIGHT);
                 let lumen = math3D.calcIllumination(polygon.lumen, LIGHT.lumen * (isShadow && dark ? dark : 1));
