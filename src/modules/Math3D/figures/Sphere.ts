@@ -14,7 +14,7 @@ class Sphere extends Figure {
         const edges = [];
         const polygons = [];
 
-        for (let j = 0; j < count; j++) {
+        for (let j = 0; j <= count; j++) {
             const T = (Math.PI / count) * j;
             for (let i = 0; i < count; i++) {
                 const p = ((2 * Math.PI) / count) * i;
@@ -40,8 +40,17 @@ class Sphere extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
-
-
+        let color_ = "#000000";
+        const revese = () => {
+            color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
+        };
+        polygons.forEach((elem, index) => {
+            revese();
+            if (index % 4 === 0) {
+                revese();
+            }
+            elem.color = elem.hexToRgb(color_);
+        });
         this.points = points;
         this.edges = edges;
         this.polygons = polygons;

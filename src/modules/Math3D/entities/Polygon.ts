@@ -15,6 +15,7 @@ export default class Polygon {
     figureIndex: number;
     [EDistance.distance]: number;
     [EDistance.lumen]: number;
+    opasit: number;
 
     constructor(points: Array<number> = [], color = "#ff0000") {
         this.figureIndex = 0;
@@ -23,6 +24,7 @@ export default class Polygon {
         this.distance = 0;
         this.lumen = 1; //[0..1]
         this.R = 1;
+        this.opasit = 1;
         this.color = this.hexToRgb(color);
     }
     hexToRgb(hex: string): TRGB {
@@ -41,6 +43,6 @@ export default class Polygon {
     }
 
     rgbToHex(r: number, g: number, b: number): string {
-        return `rgb(${r},${g},${b})`;
+        return `rgba(${r},${g},${b},${this.opasit})`;
     }
 }
