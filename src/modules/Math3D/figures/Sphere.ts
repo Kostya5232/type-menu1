@@ -40,30 +40,48 @@ class Sphere extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+        let a = 0;
+        let ryad = 0;
         let color_ = "#000000";
-        const revese = () => {
+        const reverse = () => {
             color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
         };
-        polygons.forEach((elem, index) => {
-            revese();
-            if (index % 4 === 0) {
-                revese();
+        // polygons.forEach((elem, index) => {
+        //     a++;
+        //     if (a === 3) {
+        //         reverse();
+        //         a = 0;
+        //     }
+        //     if (index % count === 0) {
+        //         reverse();
+        //         ryad++;
+        //         if (ryad === 3) {
+        //             reverse();
+        //             ryad = 0;
+        //         }
+        //     }
+        //     elem.color = elem.hexToRgb(color_);
+        // });
+        for (let i = 0; i < polygons.length; i++) {
+            for (let j = 1; j <= count; j += 3) {
+                if (i + count * j + 1 < polygons.length) {
+                    polygons[i].color = polygons[i].hexToRgb(color_);
+                    polygons[i + count * j].color = polygons[i].hexToRgb(color_);
+                    polygons[i + count * j + 1].color = polygons[i].hexToRgb(color_);
+                }
+                reverse();
             }
-            elem.color = elem.hexToRgb(color_);
-        });
+            ryad++;
+            if (ryad === 3) {
+                reverse();
+                ryad = 0;
+            }
+        }
+
         this.points = points;
         this.edges = edges;
         this.polygons = polygons;
     }
 }
-
-// function getRandomColor() {
-//     const letters = "0123456789ABCDEF";
-//     let color = "#";
-//     for (let i = 0; i < 6; i++) {
-//         color += letters[Math.floor(Math.random() * 16)];
-//     }
-//     return color;
-// }
 
 export default Sphere;
