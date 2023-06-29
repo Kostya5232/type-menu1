@@ -8,8 +8,8 @@ export interface TConeOptions extends IidenticalParam {
 class Cone extends Figure {
     constructor(options: TConeOptions) {
         super();
-        const { r = 2, count = 8, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
-        const points = []
+        const { r = 2, count = 8, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
+        const points = [];
         const edges = [];
         const polygons = [];
 
@@ -37,6 +37,28 @@ class Cone extends Figure {
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
             } else if (i + count < points.length && (i + 1) % count === 0) {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
+            }
+        }
+        let color_ = "#000000";
+        const reverse = () => {
+            color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
+        };
+        let ryad = 0;
+        for (let i = 0; i <= count * 2; i++) {
+            for (let j = 0; j < count * 2; j += 3) {
+                if (i + count * (j + 2) < polygons.length) {
+                    console.log(1);
+                    polygons[i + count * j].color = polygons[0].hexToRgb(color_);
+                    polygons[i + count * (j + 1)].color = polygons[0].hexToRgb(color_);
+                    polygons[i + count * (j + 2)].color = polygons[0].hexToRgb(color_);
+                }
+                reverse();
+            }
+
+            ryad++;
+            if (ryad === 3) {
+                reverse();
+                ryad = 0;
             }
         }
 
