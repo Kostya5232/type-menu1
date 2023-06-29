@@ -47,7 +47,6 @@ class Cone extends Figure {
         for (let i = 0; i <= count * 2; i++) {
             for (let j = 0; j < count * 2; j += 3) {
                 if (i + count * (j + 2) < polygons.length) {
-                    console.log(1);
                     polygons[i + count * j].color = polygons[0].hexToRgb(color_);
                     polygons[i + count * (j + 1)].color = polygons[0].hexToRgb(color_);
                     polygons[i + count * (j + 2)].color = polygons[0].hexToRgb(color_);
