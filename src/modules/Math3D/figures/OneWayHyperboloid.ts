@@ -4,27 +4,21 @@ export interface TOneWayHyperboloidOptions extends IidenticalParam {
     a: number;
     b: number;
     c: number;
-    count: number
-
+    count: number;
 }
 class OneWayHyperboloid extends Figure {
     constructor(options: TOneWayHyperboloidOptions) {
-        super()
+        super();
         const { a = 2, b = 3, c = 4, count = 20, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
         const points: Point[] = [];
         const edges: Edge[] = [];
         const polygons: Polygon[] = [];
 
         for (let i = -count / 3; i <= count / 3; i++) {
-            let T = (2 * Math.PI / count) * i
+            let T = ((2 * Math.PI) / count) * i;
             for (let j = 0; j < count; j++) {
-                const p = (2 * Math.PI) / count * j
-                points.push(new Point(
-                    a * Math.cosh(T) * Math.cos(p) + x,
-                    c * Math.sinh(T) + y,
-                    b * Math.cosh(T) * Math.sin(p) + z
-                ));
-
+                const p = ((2 * Math.PI) / count) * j;
+                points.push(new Point(a * Math.cosh(T) * Math.cos(p) + x, c * Math.sinh(T) + y, b * Math.cosh(T) * Math.sin(p) + z));
             }
         }
 
@@ -40,17 +34,13 @@ class OneWayHyperboloid extends Figure {
             if (i + 1 + count < points.length && (i + 1) % count !== 0) {
                 polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
             } else if (i + count < points.length && (i + 1) % count === 0) {
-                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color))
+                polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
 
-
-
-
-
-        this.points = points
-        this.edges = edges
-        this.polygons = polygons
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons;
     }
 }
 

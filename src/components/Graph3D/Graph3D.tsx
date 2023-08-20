@@ -21,7 +21,7 @@ const Graph3D: React.FC = () => {
         FOCUS: new Point(0, 0, 30),
         CAMERA: new Point(0, 0, 40),
     };
-    const LIGHT = new Light(-10, 10, 10, 3000000);
+    const LIGHT = new Light(-10, 10, 10, 3000);
     let scene: TScene = [];
 
     let canRotate = false;
@@ -98,10 +98,13 @@ const Graph3D: React.FC = () => {
                     figure.points[polygon.points[2]],
                     figure.points[polygon.points[3]],
                 ];
-                
+
                 let { r, g, b } = polygon.color;
                 const { isShadow, dark } = math3D.calcShadow(polygon, scene, LIGHT);
-                let lumen = math3D.calcIllumination(polygon.lumen, LIGHT.lumen * (isShadow && dark ? dark : 1));
+                let lumen = LIGHT.lumen;
+                if (polygon.flag) {
+                    lumen = math3D.calcIllumination(polygon.lumen, LIGHT.lumen * (isShadow && dark ? dark : 1));
+                }
                 r = Math.round(r * lumen);
                 g = Math.round(g * lumen);
                 b = Math.round(b * lumen);

@@ -12,6 +12,8 @@ export default class Polygon {
     color: TRGB;
     center: Point;
     R: number;
+    flag: number;
+
     figureIndex: number;
     [EDistance.distance]: number;
     [EDistance.lumen]: number;
@@ -25,6 +27,7 @@ export default class Polygon {
         this.lumen = 1; //[0..1]
         this.R = 1;
         this.opasit = 1;
+        this.flag = 1;
         this.color = this.hexToRgb(color);
     }
     hexToRgb(hex: string): TRGB {

@@ -4,14 +4,13 @@ import { IidenticalParam } from "./IidenticalParam";
 export interface TTorOptions extends IidenticalParam {
     R: number;
     r: number;
-    count: number
-
+    count: number;
 }
 
 class Tor extends Figure {
     constructor(options: TTorOptions) {
-        super()
-        const { R = 13, r = 5, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
+        super();
+        const { R = 13, r = 5, count = 20, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
         const points = [];
         const edges = [];
         const polygons = [];
@@ -48,10 +47,21 @@ class Tor extends Figure {
             }
         }
         polygons.push(new Polygon([0, count - 1, points.length - 1, points.length - count], color));
-
-        this.points = points
-        this.edges = edges
-        this.polygons = polygons
+        let shir = Math.floor((polygons.length * 50) / 100);
+        let h = Math.floor((polygons.length * 20) / 100);
+        let index = 0;
+        for (let i = 0; i < h; i++) {
+            for (let j = index; j < shir; j++) {
+                index++;
+                if (index < polygons.length) {
+                    polygons[index].flag = 0;
+                }
+            }
+            index += count;
+        }
+        this.points = points;
+        this.edges = edges;
+        this.polygons = polygons;
     }
 }
 
