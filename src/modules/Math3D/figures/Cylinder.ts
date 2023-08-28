@@ -17,7 +17,7 @@ class Cylinder extends Figure {
         const polygons = [];
 
         //точки
-        for (let _h = -h; _h <= h; _h = _h + 2) {
+        for (let _h = h; _h > h; _h -= 2) {
             for (let j = 0; j < count; j++) {
                 let p = ((2 * Math.PI) / count) * j;
                 points.push(new Point(a * Math.cos(0) * Math.cos(p) + x, _h + y, b * Math.sin(p) + z));
@@ -44,6 +44,13 @@ class Cylinder extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+        for (let j = 0; j <= 3; j += 3) {
+            for (let i = -2; i <= 2; i++) {
+                polygons[Math.floor(polygons.length / 2 + count * i + j)].opasit = 0;
+            }
+        }
+
+        polygons[Math.floor(polygons.length / 2 - count * 0 + 1)].opasit = 0;
 
         this.points = points;
         this.edges = edges;

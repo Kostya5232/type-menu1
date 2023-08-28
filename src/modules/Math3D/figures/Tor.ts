@@ -47,6 +47,7 @@ class Tor extends Figure {
             }
         }
         polygons.push(new Polygon([0, count - 1, points.length - 1, points.length - count], color));
+
         let shir = Math.floor((polygons.length * 50) / 100);
         let h = Math.floor((polygons.length * 20) / 100);
         let index = 0;

@@ -39,6 +39,17 @@ class EllipticalParabaloid extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 6; j++) {
+                polygons[Math.floor(polygons.length / 2 + j + count * i)].opasit = 0;
+            }
+        }
+
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 6; j++) {
+                polygons[Math.floor(polygons.length / 2 + j + count * i + count / 2)].opasit = 0;
+            }
+        }
 
         this.points = points;
         this.edges = edges;

@@ -4,13 +4,12 @@ import { IidenticalParam } from "./IidenticalParam";
 export interface THyperbolicParaboloidOptions extends IidenticalParam {
     p: number;
     q: number;
-    count: number
-
+    count: number;
 }
 class HyperbolicParaboloid extends Figure {
     constructor(options: THyperbolicParaboloidOptions) {
         super();
-        const { p = 4, q = 4, count = 20, color = 'lightgreen', x = 0, y = 0, z = 0 } = options;
+        const { p = 4, q = 4, count = 20, color = "lightgreen", x = 0, y = 0, z = 0 } = options;
         const points = [];
         const edges = [];
         const polygons = [];
@@ -42,10 +41,35 @@ class HyperbolicParaboloid extends Figure {
                 }
             }
         }
+        let asd = () => {
+            opasit += (count * 2) / polygons.length;
+        };
+        let index = 0;
+        let opasit = 0;
+        for (let i = 0; i < count / 2; i++) {
+            for (let j = index; j < index + count; j++) {
+                if (index + count < polygons.length) polygons[j].opasit = opasit;
+                console.log(opasit);
+            }
+            asd();
+            index += count;
+        }
+        opasit = 1;
+        asd = () => {
+            opasit -= (count * 2) / polygons.length;
+        };
+        for (let i = count / 2; i < count; i++) {
+            for (let j = index; j < index + count + 1; j++) {
+                if (index + count < polygons.length) polygons[j].opasit = opasit;
+            }
+            console.log(opasit);
+            asd();
+            index += count;
+        }
 
         this.points = points;
         this.edges = edges;
-        this.polygons = polygons
+        this.polygons = polygons;
     }
 }
 

@@ -39,30 +39,30 @@ class Cone extends Figure {
                 polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color));
             }
         }
-        let color_ = "#000000";
-        const reverse = () => {
-            color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
-        };
-        let ryad = 0;
-        for (let i = 0; i <= 2; i++) {
-            for (let j = 0; j <= count * 2; j += 3) {
-                if (i + count * (j + 2) < polygons.length) {
-                    polygons[i + count * j].color = polygons[0].hexToRgb(color_);
-                    polygons[i + count * (j + 1)].color = polygons[0].hexToRgb(color_);
-                    if (ryad == 1) {
-                        //polygons[i + count * (j + 1)].col = 0;
-                    }
-                    polygons[i + count * (j + 2)].color = polygons[0].hexToRgb(color_);
-                }
-                reverse();
-            }
-            // 012 345 678 91011
-            ryad++;
-            if (ryad === 3) {
-                reverse();
-                ryad = 0;
-            }
-        }
+        // let color_ = "#000000";
+        // const reverse = () => {
+        //     color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
+        // };
+        // let ryad = 0;
+        // for (let i = 0; i <= 2; i++) {
+        //     for (let j = 0; j <= count * 2; j += 3) {
+        //         if (i + count * (j + 2) < polygons.length) {
+        //             polygons[i + count * j].color = polygons[0].hexToRgb(color_);
+        //             polygons[i + count * (j + 1)].color = polygons[0].hexToRgb(color_);
+        //             if (ryad == 1) {
+        //                 //polygons[i + count * (j + 1)].col = 0;
+        //             }
+        //             polygons[i + count * (j + 2)].color = polygons[0].hexToRgb(color_);
+        //         }
+        //         reverse();
+        //     }
+        //     // 012 345 678 91011
+        //     ryad++;
+        //     if (ryad === 3) {
+        //         reverse();
+        //         ryad = 0;
+        //     }
+        // }
 
         this.points = points;
         this.edges = edges;

@@ -50,42 +50,6 @@ class HyperbolicCylinder extends Figure {
                 polygons.push(new Polygon([i, i + 1, count + i + 1, count + i], color));
             }
         }
-        let color_ = "#000000";
-        const reverse = () => {
-            color_ == "#000000" ? (color_ = "#ffffff") : (color_ = "#000000");
-        };
-        let ryad = 0;
-        // let stolb = 0;
-        // polygons.forEach((elem, index) => {
-        //     stolb++;
-        //     elem.color = elem.hexToRgb(color_);
-        //     if (stolb === 2) {
-        //         reverse();
-        //         stolb = 0;
-        //     }
-        //     if (index % count === 0) {
-        //         reverse();
-        //         ryad++;
-        //         if (ryad === 2) {
-        //             reverse();
-        //             ryad = 0;
-        //         }
-        //     }
-        // });
-        for (let i = 0; i <= polygons.length; i += 1) {
-            for (let j = 1; j <= count; j += 2) {
-                if (i + count * (j + 1) < polygons.length) {
-                    polygons[i + count * j].color = polygons[0].hexToRgb(color_);
-                    polygons[i + count * (j + 1)].color = polygons[0].hexToRgb(color_);
-                }
-                reverse();
-            }
-            ryad++;
-            if (ryad === 2) {
-                reverse();
-                ryad = 0;
-            }
-        }
 
         this.points = points;
         this.edges = edges;
